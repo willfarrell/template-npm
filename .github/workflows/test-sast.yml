@@ -87,7 +87,7 @@ jobs:
 
       # https://semgrep.dev/docs/semgrep-ci/sample-ci-configs/#github-actions
       - name: semgrep
-        run: semgrep scan --config auto --metrics=off
+        run: semgrep ci
 
   trufflehog:
     name: 'truffleHog: Secrets'
