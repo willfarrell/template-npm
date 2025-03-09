@@ -16,8 +16,8 @@ jobs:
     if: (github.actor != 'dependabot[bot]')
 
     strategy:
-    matrix:
-      node-version: [23.x]
+      matrix:
+        node-version: [23.x]
 
     steps:
       - name: Checkout repository
