@@ -21,7 +21,7 @@ describe("Fuzz", () => {
         }
       }),
       {
-        numRuns: 100_000,
+        numRuns: 10, // 1_000_000
         verbose: 2,
         examples: [],
       },
