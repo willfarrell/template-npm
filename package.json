@@ -1,0 +1,66 @@
+{
+  "name": "@willfarrell/template-npm",
+  "version": "0.0.0-alpha.0",
+  "description": "Repository template for npm packages",
+  "private": false,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "engineStrict": true,
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "default": "./index.js"
+      }
+    }
+  },
+  "scripts": {
+    "prepare": "husky",
+    "git:pre-commit": "lint-staged && npm run git:test-staged",
+    "git:commit-msg": "commitlint --config commitlint.config.cjs --edit",
+    "git:lint-staged": "prettier --check --log-level error",
+    "git:test-staged": "node --test",
+    "test": "npm run test:lint && npm run test:all",
+    "test:lint": "prettier --write --log-level warn \"./**/*.{js,cjs,mjs,json}\"",
+    "test:lint:ci": "prettier --check --log-level error \"./**/*.{js,cjs,mjs,json}\"",
+    "test:all": "node --test --experimental-test-coverage \"./**/*.*-test.js\"",
+    "test:unit": "node --test --experimental-test-coverage \"./**/*.unit-test.js\"",
+    "test:fuzz": "node --test --experimental-test-coverage \"./**/*.fuzz-test.js\"",
+    "test:perf": "node --test --experimental-test-coverage \"./**/*.perf-test.js\"",
+    "test:sast": "npm run test:sast:sandworm && npm run test:sast:semgrep && npm run test:sast:trufflehog",
+    "test:sast:sandworm": "sandworm-audit --skip-all --show-tips false",
+    "test:sast:semgrep": "semgrep scan --config auto --exclude=\"scripts/*\"",
+    "test:sast:trufflehog": "trufflehog filesystem --only-verified --log-level=-1 ./",
+    "release:publish": "npm publish",
+    "release:publish:next": "npm publish --tag next"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willfarrell/template-npm.git"
+  },
+  "keywords": [],
+  "author": "willfarrell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/willfarrell/template-npm/issues"
+  },
+  "homepage": "https://github.com/willfarrell/template-npm",
+  "devDependencies": {
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
+    "fast-check": "^3.0.0",
+    "husky": "^9.0.0",
+    "lint-staged": "^15.0.0",
+    "prettier": "^3.0.0",
+    "tinybench": "^3.0.0"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/willfarrell"
+  }
+}
