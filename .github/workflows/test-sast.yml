@@ -89,6 +89,7 @@ jobs:
       - name: semgrep
         run: semgrep ci
 
+  #   Err: fatal: detected dubious ownership in repository at '/github/workspace/.git'
   trufflehog:
     name: 'truffleHog: Secrets'
     runs-on: ubuntu-latest
