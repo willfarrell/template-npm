@@ -5,7 +5,7 @@
   "private": false,
   "type": "module",
   "engines": {
-    "node": ">=22"
+    "node": ">=23"
   },
   "engineStrict": true,
   "files": [
@@ -28,10 +28,10 @@
     "test": "npm run test:lint && npm run test:all",
     "test:lint": "prettier --write --log-level warn \"./**/*.{js,cjs,mjs,json}\"",
     "test:lint:ci": "prettier --check --log-level error \"./**/*.{js,cjs,mjs,json}\"",
-    "test:all": "node --test --experimental-test-coverage \"./**/*.*-test.js\"",
-    "test:unit": "node --test --experimental-test-coverage \"./**/*.unit-test.js\"",
-    "test:fuzz": "node --test --experimental-test-coverage \"./**/*.fuzz-test.js\"",
-    "test:perf": "node --test --experimental-test-coverage \"./**/*.perf-test.js\"",
+    "test:all": "npm run test:unit && npm run test:fuzz && npm run test:perf",
+    "test:unit": "node --test --experimental-test-coverage --test-coverage-functions=100 ./**/*.unit-test.js",
+    "test:fuzz": "node --test ./**/*.fuzz-test.js",
+    "test:perf": "node --test ./**/*.perf-test.js",
     "test:sast": "npm run test:sast:sandworm && npm run test:sast:semgrep && npm run test:sast:trufflehog",
     "test:sast:sandworm": "sandworm-audit --skip-all --show-tips false",
     "test:sast:semgrep": "semgrep scan --config auto --exclude=\"scripts/*\"",
