@@ -1,4 +1,4 @@
-name: Tests (fuzz)
+name: Tests (dast)
 
 on:
   pull_request:
@@ -7,8 +7,8 @@ permissions:
   contents: read
 
 jobs:
-  unit:
-    name: Tests (fuzz)
+  fuzz:
+    name: Fuzz (DAST)
     runs-on: ubuntu-latest
 
     strategy:
@@ -28,3 +28,5 @@ jobs:
       - name: Fuzzing tests
         run: |
           npm run test:fuzz
+
+# zaproxy
