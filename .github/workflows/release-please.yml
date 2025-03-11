@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: googleapis/release-please-action@d1a8f221d7723166f48a584aebba00ef3f6febec # v4.1.4
         with:
-          #token: ${{ secrets.MY_RELEASE_PLEASE_TOKEN
+          token: ${{ github.token }}
           target-branch: main
           config-file: .github/workflows/.release-please-config.json
           manifest-file: .github/workflows/.release-please-manifest.json
