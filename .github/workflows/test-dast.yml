@@ -27,6 +27,6 @@ jobs:
           npm ci
       - name: Fuzzing tests
         run: |
-          npm run test:fuzz
+          npm run test:dast:fuzz
 
 # zaproxy
