@@ -53,3 +53,6 @@ Automated using `.github/workflows/ossf-scorecard.yml`. Details on check and rem
    1. Under **Secret scanning**, Click `Enable`
    1. Under **Push protection**, Click `Enable`
 
+## Open Source Security Foundation Report
+
+https://www.bestpractices.dev/en/criteria
