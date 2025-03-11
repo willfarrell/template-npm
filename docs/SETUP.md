@@ -53,6 +53,17 @@ Automated using `.github/workflows/ossf-scorecard.yml`. Details on check and rem
    1. Under **Secret scanning**, Click `Enable`
    1. Under **Push protection**, Click `Enable`
 
+## Actions secrets and variables
+
+You will need the following secrets setup:
+
+- `NPM_TOKEN`
+  - Source: [npm Access Tokens](https://www.npmjs.com/settings/willfarrell/tokens)
+  - Type: `Granular Access Token`
+  - Permissions: `Read and write` + `Only select packages and scopes`
+
+Actions secrets and variables can be added at the [organization level](https://github.com/organizations/willfarrell/settings/secrets/actions) or the [repository level](https://github.com/willfarrell/template-npm/settings/secrets/actions).
+
 ## Open Source Security Foundation Report
 
 https://www.bestpractices.dev/en/criteria
