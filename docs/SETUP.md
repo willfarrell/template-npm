@@ -64,6 +64,10 @@ You will need the following secrets setup:
 
 Actions secrets and variables can be added at the [organization level](https://github.com/organizations/willfarrell/settings/secrets/actions) or the [repository level](https://github.com/willfarrell/template-npm/settings/secrets/actions).
 
+## Release Please
+
+Update `signoff` in `.github/workflows/.release-please-config.json` to match owner of personal access token for `PR_TOKEN` set above.
+
 ## Open Source Security Foundation Report
 
 https://www.bestpractices.dev/en/criteria
