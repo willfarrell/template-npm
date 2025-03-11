@@ -34,7 +34,7 @@
     "test:perf": "node --test ./**/*.perf-test.js",
     "test:sast": "npm run test:sast:sandworm && npm run test:sast:semgrep && npm run test:sast:trufflehog",
     "test:sast:sandworm": "sandworm-audit --skip-all --show-tips false",
-    "test:sast:semgrep": "semgrep scan --config auto --exclude=\"scripts/*\"",
+    "test:sast:semgrep": "semgrep scan --config auto",
     "test:sast:trufflehog": "trufflehog filesystem --only-verified --log-level=-1 ./",
     "release:publish": "npm publish",
     "release:publish:next": "npm publish --tag next"
