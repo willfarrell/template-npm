@@ -40,3 +40,16 @@ Automated using `.github/workflows/ossf-scorecard.yml`. Details on check and rem
       1. Click `Add tool`, select `CodeQL`
 1. Click `Create`
 
+### Code security
+
+1. Go to [Code security](https://github.com/willfarrell/template-npm/settings/security_analysis)
+1. Under **Private vulnerability reporting**, Click `Enable`
+1. Setup `Dependabot`
+   1. Under **Dependabot alerts**, Click `Enable`
+   1. Under **Dependabot security updates**, Click `Enable`
+   1. Under **Grouped security updates**, Click `Enable`
+   1. Under **Dependabot on Actions runners**, Click `Enable`
+1. Setup `Secret scanning`
+   1. Under **Secret scanning**, Click `Enable`
+   1. Under **Push protection**, Click `Enable`
+
