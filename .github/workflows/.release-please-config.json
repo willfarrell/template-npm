@@ -3,7 +3,7 @@
   "packages": {
     ".": {}
   },
-  "signoff": "release-please <willfarrell@proton.me>",
+  "signoff": "will Farrell <willfarrell@proton.me>",
   "changelog-path": "docs/CHANGELOG.md",
   "release-type": "node",
   "bump-minor-pre-major": true,
