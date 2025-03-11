@@ -13,6 +13,15 @@ To ensure we're following FLOSS Best Practices:
 
 If you are a maintainer and want to release a new version, consult the dedicated [RELEASE manual](/docs/RELEASE.md).
 
+## Setup
+
+```bash
+npm i -g @sandworm/audit
+brew install semgrep
+brew install trufflehog
+brew install --cask zap
+```
+
 ## License
 
 Licensed under [MIT License](LICENSE). Copyright (c) 1985-2025 [will Farrell](https://github.com/willfarrell), and all [contributors](https://github.com/willfarrell/template-npm/graphs/contributors).
