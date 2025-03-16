@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   fuzz:
-    name: Unit Fuzzing
+    name: Tests (fuzz)
     runs-on: ubuntu-latest
 
     strategy:
