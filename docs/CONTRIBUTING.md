@@ -6,10 +6,21 @@ Before contributing to the project, make sure to have a look at our [Code of Con
 
 To ensure we're following FLOSS Best Practices:
 
-- We require all commits to have be `Signed-off-by`, by including `name` & `email`
+- We require all commits to have Developer Certificate of Origin (DCO)
+  a. `git config --global user.name "Your Name"` and `git config --global user.email username@example.org` setup
+  a. Or, `Signed-off-by: username <email address>` as the last line of a commit, when a change is made through GitHub
 - We require all commits to have signature verification [GitHub Docs: About commit signature verification](https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification)
 
 If you are a maintainer and want to release a new version, consult the dedicated [RELEASE manual](/docs/RELEASE.md).
+
+## Setup
+
+```bash
+npm i -g @sandworm/audit
+brew install semgrep
+brew install trufflehog
+brew install --cask zap
+```
 
 ## License
 
