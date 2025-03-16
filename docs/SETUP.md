@@ -61,6 +61,10 @@ You will need the following secrets setup:
   - Source: [npm Access Tokens](https://www.npmjs.com/settings/willfarrell/tokens)
   - Type: `Granular Access Token`
   - Permissions: `Read and write` + `Only select packages and scopes`
+- `PR_SECRET`
+  - Source: [GitHub Personal access tokens](https://github.com/settings/personal-access-tokens)
+  - Type: `Fine-grained personal access tokens`
+  - Permissions: `Only select repositories` + `Contents: Read and write` & `Pull requests: Read and write` & `Workflows: Read and write`
 
 Actions secrets and variables can be added at the [organization level](https://github.com/organizations/willfarrell/settings/secrets/actions) or the [repository level](https://github.com/willfarrell/template-npm/settings/secrets/actions).
 
