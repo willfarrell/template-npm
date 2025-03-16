@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   fuzz:
-    name: Fuzz (DAST)
+    name: Unit Fuzzing
     runs-on: ubuntu-latest
 
     strategy:
@@ -29,4 +29,4 @@ jobs:
         run: |
           npm run test:dast:fuzz
 
-# zaproxy
+# zaproxy Endpoint Fuzzing
