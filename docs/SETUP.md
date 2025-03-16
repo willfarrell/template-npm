@@ -66,7 +66,7 @@ Actions secrets and variables can be added at the [organization level](https://g
 
 ## Release Please
 
-Update `signoff` in `.github/workflows/.release-please-config.json` to match owner of personal access token for `PR_TOKEN` set above.
+Update `signoff` in `.github/workflows/.release-please-config.json` to match owner of personal access token for `PR_TOKEN` set above. Use `username@users.noreply.github.com` as the email address.
 
 ## Open Source Security Foundation Report
 
