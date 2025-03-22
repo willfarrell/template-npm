@@ -11,10 +11,5 @@ jobs:
     name: Tests (dco)
     runs-on: ubuntu-latest
     steps:
-      - name: Check for Developer Certificate of Origin (DCO) compiance
+      - name: Check for Developer Certificate of Origin (DCO) compliance
         uses: KineticCafe/actions-dco@416cafbc9c07f26219d09981d9ac49ce29b5bfea # v1.3.4
-  # dco-alt:
-  #   name: Tests (dco-alt)
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: tisonkun/actions-dco@f1024cd563550b5632e754df11b7d30b73be54a5 # v1.1

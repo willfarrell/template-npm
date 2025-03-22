@@ -13,7 +13,7 @@ Our goal is to ensure OSS meets security best practices as outlined by the follo
 
 - [OWASP ASVS v5.0 Level 3](https://github.com/OWASP/ASVS/tree/master/5.0/en)
 
-Standards are evaluated using automated scans (Fuzzing, Linting, SAST, SCA, Unit tests) and manual self-audits. 3rd party audits
+Standards are evaluated using automated scans (DAST, Linting, SAST, SCA, Unit tests) and manual self-audits. 3rd party audits
 are welcome.
 
 ## Supported Versions
@@ -33,11 +33,13 @@ Report security vulnerabilities by emailing the lead maintainer at:
 willfarrell@proton.me
 ```
 
-The lead maintainer will acknowledge your email within 24 hours, and will
-send a more detailed response within 48 hours indicating the next steps in
-handling your report. After the initial reply to your report, the security
-team will endeavour to keep you informed of the progress towards a fix and
-full announcement, and may ask for additional information or guidance.
+This email address does support PGP.
+
+The lead maintainer will acknowledge your email within 14 days, and will
+send a more detailed response within the following 48 hours indicating the
+next steps in handling your report. After the initial reply to your report,
+the security team will endeavour to keep you informed of the progress towards
+a fix and full announcement, and may ask for additional information or guidance.
 
 Report security vulnerabilities in third-party modules to the person or
 team maintaining the module.
