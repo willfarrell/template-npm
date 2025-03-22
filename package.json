@@ -1,6 +1,6 @@
 {
   "name": "@willfarrell/template-npm",
-  "version": "0.0.0-alpha.0",
+  "version": "0.0.0-alpha.1",
   "description": "Repository template for npm packages",
   "private": false,
   "type": "module",
@@ -59,10 +59,10 @@
   "devDependencies": {
     "@commitlint/cli": "^19.0.0",
     "@commitlint/config-conventional": "^19.0.0",
-    "fast-check": "^3.0.0",
+    "fast-check": "^4.0.0",
     "husky": "^9.0.0",
     "lint-staged": "^15.0.0",
     "prettier": "^3.0.0",
-    "tinybench": "^3.0.0"
+    "tinybench": "^4.0.0"
   }
 }
