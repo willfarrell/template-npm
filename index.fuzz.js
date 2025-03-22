@@ -1,6 +1,6 @@
 import { describe, test } from "node:test";
 import fc from "fast-check";
-import foo from "./index.js";
+import fct from "./index.js";
 
 const catchError = (input, e) => {
   if (e.message === "false") {
@@ -10,12 +10,13 @@ const catchError = (input, e) => {
   throw e;
 };
 
+const run = fct();
 describe("Fuzz", () => {
   test("Should accept input of `string`", async () => {
     fc.assert(
       fc.asyncProperty(fc.string(), async (input) => {
         try {
-          await foo(input);
+          await run(input);
         } catch (e) {
           catchError(input, e);
         }
@@ -31,7 +32,7 @@ describe("Fuzz", () => {
     fc.assert(
       fc.asyncProperty(fc.boolean(), async (input) => {
         try {
-          await foo(input);
+          await run(input);
         } catch (e) {
           catchError(input, e);
         }

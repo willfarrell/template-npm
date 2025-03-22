@@ -24,11 +24,11 @@ assignees: ''
 **Todo List:**
 
 - [ ] Feature/Fix fully implemented
-- [ ] All commits are cryptographically signed
-- [ ] Updated relevant types
+- [ ] Updated relevant type definitions
 - [ ] Added tests (if applicable)
   - [ ] Unit tests
   - [ ] Fuzz tests
   - [ ] Perf tests
 - [ ] Updated relevant documentation
 - [ ] Updated relevant examples
+- [ ] does NOT include a version bump

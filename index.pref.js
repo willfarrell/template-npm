@@ -1,17 +1,18 @@
 import { Bench } from "tinybench";
-import foo from "./index.js";
+import fct from "./index.js";
 
 const suite = new Bench();
 
+const run = fct();
 suite
   .add("bool", function () {
-    foo(true);
+    run(true);
   })
   .add("int", function () {
-    foo(1);
+    run(1);
   })
   .add("string", function () {
-    foo("true");
+    run("true");
   });
 
 suite.addEventListener("complete", function () {
