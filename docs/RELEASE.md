@@ -9,7 +9,8 @@ All releases follow semantic versioning.
 1. Pull latest commits from `develop` branch
 1. Update `package.json` to the `version` desired.
 1. Run `npm run release:sync` if necessary
-1. git tag commit
+1. git commit with message `chore: version bump`
+1. git tag commit using `0.0.0` pattern
 1. submit PR from `develop` to `main`
 1. merge PR
 1. Create GitHub Release
