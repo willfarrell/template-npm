@@ -15,6 +15,12 @@
 <p>You can read the documentation at: <a href="https://github.com/willfarrell/template-npm">https://github.com/willfarrell/template-npm</a></p>
 </div>
 
+## Install
+
+```bash
+npm i @willfarrell/template-npm
+```
+
 ## Options
 
 - `parameter` (type) [default]: A description about what it controls.
