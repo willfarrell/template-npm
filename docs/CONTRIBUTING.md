@@ -4,6 +4,8 @@ In the spirit of Open Source Software, everyone is very welcome to contribute to
 
 Before contributing to the project, make sure to have a look at our [Code of Conduct](/docs/CODE_OF_CONDUCT.md).
 
+Want to help, but finding new features and bugs a little daunting to tackle. Improving documentation (grammar, spelling, examples, internationalization), improving unit test coverage, and refactoring to use newer native APIs are great places to add value.
+
 ## 1. Fork
 
 Ensure git history is pulled from the `develop` branch.
@@ -17,23 +19,51 @@ brew install trufflehog
 brew install --cask zap
 ```
 
-## 3. Testing
+## 3. Implementation
+
+When necessary ensure changes follow secure design principles. See [SECURITY.md](/SECURITY.md)
+
+## 4. Testing
 
 ```bash
 npm test
 ```
 
-Ensure tests are updated and pass.
+Ensure tests are updated and pass. All tests are automatically enforced using GitHub Actions on Pull-Requests.
 
-- [ ] Linting
-- [ ] Unit tests
-- [ ] SAST
-- [ ] Performance benchmarks
-- [ ] DAST
+### Formating / Linting
 
-All tests are automatically enforced using GitHub Actions on Pull-Requests.
+We use `prettier` with default configurations.
 
-## 4. Committing
+### Unit tests
+
+We use `node --test` with a minimum test coverage of:
+
+- lines: >=90%
+- branches: >=80%
+- functions: >=90%
+
+Of course higher is always better. Bug fixes should always start with a failing unit test.
+New features should have acceptance and rejection tests.
+
+### SAST
+
+We use `CodeQL` & `semgrep` to ensure code is written in a secure way.
+
+#### SCA
+
+We use `DependaBot` & `sandworm` to ensure dependancies as free of known vulnerabilities.
+
+### DAST
+
+We use `fast-check` to run fuzzing on user inputs. It is expected that user inputs are pre-validated and/or sanitized
+before reaching this packages inputs.
+
+### Performance benchmarks
+
+We use `tinybench` to ensure there are no performance regressions.
+
+## 5. Committing
 
 Ensure git commits meet the following FLOSS Best Practices:
 
@@ -43,10 +73,10 @@ Ensure git commits meet the following FLOSS Best Practices:
   a. Or, `Signed-off-by: username <email address>` as the last line of a commit, when a change is made through GitHub
 - Commit is cryptographically signed and can be verified. This is automatically enforced GitHub security configuration. [GitHub Docs: About commit signature verification](https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification)
 
-## 5. Pull Request (PR)
+## 6. Pull Request (PR)
 
-Submit a PR to the `develop` branch. Keep PR in draft mode until all automated tests are successful. Once ready, at least 2 maintainers will review the PR and request changes if necessary.
+Submit a PR to the `develop` branch. Keep PR in draft mode until all automated tests are successful. Once ready, at least 2 maintainers will review the PR and request changes if necessary. Reviewers will be evaluating for secure design principles.
 
-## 6. Release
+## 7. Release
 
 If you are a maintainer and want to release a new version, consult the [RELEASE manual](/docs/RELEASE.md).

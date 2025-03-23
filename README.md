@@ -25,6 +25,24 @@
 <p>You can read the documentation at: <a href="https://github.com/willfarrell/template-npm">https://github.com/willfarrell/template-npm</a></p>
 </div>
 
+## Quick start
+
+### Install
+
+```bash
+npm i @willfarrell/template-npm
+```
+
+### Example
+
+```javascript
+import fct from '@willfarrell/template-npm'
+
+const run = fct(options)
+
+const output = run(input)
+```
+
 ## Sponsors
 
 ## License
