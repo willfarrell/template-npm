@@ -4,7 +4,7 @@
   <p><strong>A repository template for npm packages that meets OSSF Best Practices</strong></p>
 <p>
   <a href="https://github.com/willfarrell/template-npm/actions/workflows/test-unit.yml"><img src="https://github.com/willfarrell/template-npm/actions/workflows/test-unit.yml/badge.svg?label=Unit" alt="GitHub Actions unit test status"></a>
-  <a href="https://github.com/willfarrell/template-npm/actions/workflows/test-fuzz.yml"><img src="https://github.com/willfarrell/template-npm/actions/workflows/test-fuzz.yml/badge.svg?label=Fuzz" alt="GitHub Actions fuzz test status"></a>
+  <a href="https://github.com/willfarrell/template-npm/actions/workflows/test-dast.yml"><img src="https://github.com/willfarrell/template-npm/actions/workflows/test-dast.yml/badge.svg?label=DAST" alt="GitHub Actions dast test status"></a>
   <a href="https://github.com/willfarrell/template-npm/actions/workflows/test-perf.yml"><img src="https://github.com/willfarrell/template-npm/actions/workflows/test-pref.yml/badge.svg?label=Perf" alt="GitHub Actions perf test status"></a>
   <a href="https://github.com/willfarrell/template-npm/actions/workflows/test-sast.yml"><img src="https://github.com/willfarrell/template-npm/actions/workflows/test-sast.yml/badge.svg?label=SAST" alt="GitHub Actions SAST test status"></a>
   <a href="https://github.com/willfarrell/template-npm/actions/workflows/test-lint.yml"><img src="https://github.com/willfarrell/template-npm/actions/workflows/test-lint.yml/badge.svg?label=Lint" alt="GitHub Actions lint test status"></a>
