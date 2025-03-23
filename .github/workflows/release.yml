@@ -41,14 +41,14 @@ jobs:
         run: |
           npm run build
       - name: Pre-Release
-        if: contains(${{ github.ref_name }}, 'alpha') || contains(${{ github.ref_name }}, 'beta') || contains(${{ github.ref_name }}, 'rc')
+        if: ${{ contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') || contains(github.ref_name, 'rc') }}
         run: |
           npm run release:publish:next
         env:
           NPM_CONFIG_PROVENANCE: 'true'
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Release
-        if: contains(${{ github.ref_name }}, 'alpha') == false && contains(${{ github.ref_name }}, 'beta') == false && contains(${{ github.ref_name }}, 'rc') == false
+        if: ${{ !contains(github.ref_name, 'alpha') && !contains(github.ref_name, 'beta') && !contains(github.ref_name, 'rc') }}
         run: |
           npm run release:publish
         env:
