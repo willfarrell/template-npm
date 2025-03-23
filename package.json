@@ -1,6 +1,6 @@
 {
   "name": "@willfarrell/template-npm",
-  "version": "0.0.0-alpha.1",
+  "version": "0.0.0-alpha.3",
   "description": "Repository template for npm packages",
   "private": false,
   "type": "module",
@@ -38,8 +38,8 @@
     "test:dast": "npm run test:dast:fuzz",
     "test:dast:fuzz": "node --test ./**/*.fuzz.js",
     "test:dast:zap": "echo TODO",
-    "release:publish": "npm publish",
-    "release:publish:next": "npm publish --tag next"
+    "release:publish": "npm publish --access public",
+    "release:publish:next": "npm publish --tag next --access public"
   },
   "repository": {
     "type": "git",
