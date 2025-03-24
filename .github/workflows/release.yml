@@ -1,21 +1,30 @@
 name: Release
 
 on:
-  push:
-    tags: ["^[0-9]+\\.[0-9]+\\.[0-9]+\\(-(rc|beta|alpha)\\.[0-9]+)?$"]
+  workflow_dispatch:
+  pull_request:
+    branches: ['main']
 
 env:
   NODE_VERSION: 23.x
-  allowed: ${{ github.ref_protected && startsWith(github.ref, 'refs/tags/') }}
-  prerelease: ${{ contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') || contains(github.ref_name, 'rc') }}
 
 permissions:
   contents: read
 
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        id: env
+        run: |
+          tag=$(git describe --tags --abbrev=0)
+          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+          echo "prerelease=$([ ${tag##*-*} ] && echo false || echo true)" >> "$GITHUB_OUTPUT"
+
   build:
     name: Build
-    if: ${{ env.allowed }}
+    needs: setup
     runs-on: ubuntu-latest
 
     permissions:
@@ -58,14 +67,13 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: ${{ github.ref_name }}
+          name: ${{ steps.env.tag }}
           path: |
             **/package.json
             **/*.tgz
 
   release:
     name: Release
-    if: ${{ env.allowed }}
     needs: build
     runs-on: ubuntu-latest
 
@@ -80,19 +88,18 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # 4.2.1
         with:
-          name: ${{ github.ref_name }}
+          name: ${{ steps.env.tag }}
       - name: Release
         # Replaces actions/create-release & actions/upload-release-asset (deprecated)
         uses: softprops/action-gh-release@c95fe1489396fe8a9eb87c0abf8aa5b2ef267fda # v2.2.1
         with:
           draft: true
-          prerelease: ${{ env.prerelease }}
+          prerelease: ${{ fromJSON(steps.env.prerelease) }}
           files: |
             **/*.tgz
 
   publish:
     name: Publish
-    if: ${{ env.allowed }}
     needs: release
     runs-on: ubuntu-latest
 
@@ -108,15 +115,15 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # 4.2.1
         with:
-          name: ${{ github.ref_name }}
+          name: ${{ steps.env.tag }}
       - name: npm publish (next)
-        if: ${{ env.prerelease }}
+        if: ${{ fromJSON(steps.env.prerelease) }}
         run: |
           npm publish --tag next --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: npm publish (latest)
-        if: ${{ !env.prerelease }}
+        if: ${{ !fromJSON(steps.env.prerelease) }}
         run: |
           npm publish --tag latest --provenance --access public
         env:
