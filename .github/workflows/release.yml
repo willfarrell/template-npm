@@ -64,6 +64,7 @@ jobs:
 
   release:
     name: Release
+    if: startsWith(github.ref, 'refs/tags/')
     needs: build
     runs-on: ubuntu-latest
 
@@ -82,7 +83,6 @@ jobs:
       - name: Release
         # Replaces actions/create-release & actions/upload-release-asset (deprecated)
         uses: softprops/action-gh-release@c95fe1489396fe8a9eb87c0abf8aa5b2ef267fda # v2.2.1
-        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           prerelease: ${{ env.prerelease }}
@@ -91,6 +91,7 @@ jobs:
 
   publish:
     name: Publish
+    if: startsWith(github.ref, 'refs/tags/')
     needs: release
     runs-on: ubuntu-latest
 
