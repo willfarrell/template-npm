@@ -12,27 +12,9 @@ permissions:
   contents: read
 
 jobs:
-  setup:
-    if: ${{ github.event.pull_request.merged }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-          fetch-depth: 2 # to skip merge commit
-          fetch-tags: true
-      - name: Setup
-        id: env
-        run: |
-          tag=$(git describe --tags --abbrev=0)
-          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
-          echo "prerelease=$([ ${tag##*-*} ] && echo false || echo true)" >> "$GITHUB_OUTPUT"
-
   build:
     name: Build
-    needs: setup
+    if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
 
     permissions:
@@ -54,6 +36,12 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+      - name: Get version
+        id: env
+        run: |
+          tag=$(npm pkg get version)
+          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+          echo "prerelease=$([ ${tag##*-*} ] && echo false || echo true)" >> "$GITHUB_OUTPUT"
       - name: Install dependencies
         run: |
           npm ci
