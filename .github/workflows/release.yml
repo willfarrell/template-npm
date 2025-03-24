@@ -36,10 +36,10 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - name: Get version
+      - name: Set env
         id: env
         run: |
-          tag=$(npm pkg get version)
+          tag=$(npm pkg get version | xargs)
           echo "tag=${tag}" >> "$GITHUB_OUTPUT"
           echo "prerelease=$([ ${tag##*-*} ] && echo false || echo true)" >> "$GITHUB_OUTPUT"
       - name: Install dependencies
