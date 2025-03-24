@@ -1,5 +1,5 @@
 import { describe, test } from "node:test";
-import { ok, equal, deepEqual, throws } from "node:assert/strict";
+import { ok, equal, throws } from "node:assert/strict";
 import fct from "./index.js";
 
 test("Should return `true`", async (t) => {
