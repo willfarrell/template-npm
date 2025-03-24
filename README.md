@@ -13,7 +13,7 @@
   <a href="https://packagephobia.com/result?p=@willfarrell/template-npm"><img src="https://packagephobia.com/badge?p=@willfarrell/template-npm" alt="npm install size"></a>
   <a href="https://www.npmjs.com/package/@willfarrell/template-npm">
   <img alt="npm weekly downloads" src="https://img.shields.io/npm/dw/@willfarrell/template-npm.svg"></a>
-  <a href="https://www.npmjs.com/package/@willfarrell/template-np#provenancem">
+  <a href="https://www.npmjs.com/package/@willfarrell/template-npm#provenance">
   <img alt="npm provenance" src="https://img.shields.io/badge/provenance-Yes-green"></a>
   <br/>
   <a href="https://scorecard.dev/viewer/?uri=github.com/willfarrell/template-npm"><img src="https://api.scorecard.dev/projects/github.com/willfarrell/template-npm/badge" alt="Open Source Security Foundation (OpenSSF) Scorecard"></a>
