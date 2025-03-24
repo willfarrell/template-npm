@@ -59,6 +59,7 @@ jobs:
         with:
           name: ${{ github.ref_name }}
           path: |
+            **/package.json
             **/*.tgz
 
   release:
