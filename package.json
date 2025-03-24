@@ -37,9 +37,7 @@
     "test:perf": "node --test ./**/*.perf.js",
     "test:dast": "npm run test:dast:fuzz",
     "test:dast:fuzz": "node --test ./**/*.fuzz.js",
-    "test:dast:zap": "echo TODO",
-    "release:publish": "npm publish --access public",
-    "release:publish:next": "npm publish --tag next --access public"
+    "test:dast:zap": "echo TODO"
   },
   "repository": {
     "type": "git",
