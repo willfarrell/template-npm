@@ -46,10 +46,10 @@ jobs:
         id: pack
         run: |
           {
-            echo "packages<<EOF
+            echo "packages<<EOF"
             npm pack --json
             echo EOF
-          } >> $GITHUB_OUTPUT
+          } >> "$GITHUB_OUTPUT"
       # - uses: actions/attest-build-provenance@c074443f1aee8d4aeeae555aebba3282517141b2 # v2.2.3
       #   with:
       #     subject-path: **/*.tgz
