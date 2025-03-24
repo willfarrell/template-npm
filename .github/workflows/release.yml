@@ -12,10 +12,6 @@ permissions:
   contents: read
 
 jobs:
-  poc:
-    name: poc
-    runs-on: ubuntu-latest
-
   build:
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
     name: Build
