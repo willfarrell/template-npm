@@ -2,7 +2,7 @@
 
 ## Versioning
 
-All releases follow semantic versioning.
+All releases follow [semantic versioning](https://semver.org/).
 
 ## Process
 
@@ -18,6 +18,4 @@ Before deploying a new version, update all dependancies where possible without b
 1. git commit with message `chore: version bump`
 1. git tag commit using `0.0.0` pattern
 1. submit PR from `develop` to `main`
-1. merge PR
-1. Create GitHub Release
-1. On publish of release, `release.yml` will trigger and deploy to `npm` using provenance (sig-store)
+1. merge PR, this will trigger `release.yml`

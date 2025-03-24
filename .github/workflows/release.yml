@@ -1,24 +1,25 @@
 name: Release
 
 on:
-  release:
-    types:
-      - published
+  push:
+    branches: ['main']
+    tags: ['*.*.*']
 
 env:
   NODE_VERSION: 23.x
+  prerelease: ${{ contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') || contains(github.ref_name, 'rc') }}
 
 permissions:
   contents: read
 
 jobs:
-  release:
-    name: Release
+  build:
+    name: Build
     runs-on: ubuntu-latest
 
     permissions:
       contents: read
-      id-token: write # attest-build-provenance & npm publish
+      id-token: write # attest-build-provenance
       attestations: write # attest-build-provenance
     steps:
       - name: Checkout repository
@@ -44,15 +45,72 @@ jobs:
       - name: Pack
         run: |
           npm pack --json
-      - name: Pre-Release
-        if: ${{ contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') || contains(github.ref_name, 'rc') }}
+      # - uses: actions/attest-build-provenance@c074443f1aee8d4aeeae555aebba3282517141b2 # v2.2.3
+      #   with:
+      #     subject-path: ./**/*.tgz
+      - name: Upload artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: ${{ github.ref_name }}
+          path: |
+            **/*.tgz
+
+  release:
+    name: Release
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+    steps:
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: https://registry.npmjs.org
+      - name: Download artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # 4.6.2
+        with:
+          name: ${{ github.ref_name }}
+
+      - name: Release
+        # Replaces actions/create-release & actions/upload-release-asset (deprecated)
+        uses: softprops/action-gh-release@c95fe1489396fe8a9eb87c0abf8aa5b2ef267fda # v2.2.1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          draft: true
+          prerelease: ${{ env.prerelease }}
+          files: |
+            **/*.tgz
+
+  publish:
+    name: Publish
+    needs: release
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write # npm publish
+    steps:
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: https://registry.npmjs.org
+      - name: Download artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # 4.6.2
+        with:
+          name: ${{ github.ref }}
+
+      - name: npm publish (next)
+        if: ${{ env.prerelease }}
         run: |
           npm publish --tag next --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Release
-        if: ${{ !contains(github.ref_name, 'alpha') && !contains(github.ref_name, 'beta') && !contains(github.ref_name, 'rc') }}
+      - name: npm publish (latest)
+        if: ${{ !env.prerelease }}
         run: |
-          npm publish --provenance --access public
+          npm publish --tag latest --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
