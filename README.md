@@ -17,9 +17,6 @@
   <img alt="npm provenance" src="https://img.shields.io/badge/npm%20provenance-Yes-green"></a>
   <br/>
   <a href="https://scorecard.dev/viewer/?uri=github.com/willfarrell/template-npm"><img src="https://api.scorecard.dev/projects/github.com/willfarrell/template-npm/badge" alt="Open Source Security Foundation (OpenSSF) Scorecard"></a>
-  <a href="https://snyk.io/test/github/@willfarrell/template-npm"><img src="https://snyk.io/test/github/willfarrell/template-npm/badge.svg" alt="snyk Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/willfarrell/template-npm"></a>
-  <a href="https://socket.dev/npm/package/@willfarrell/template-npm"><img src="https://socket.dev/api/badge/npm/package/@willfarrell/template-npm" alt="Socket Supply chain Security"></a>
-  <br/>
   <a href="https://github.com/willfarrell/template-npm/blob/main/docs/CODE_OF_CONDUCT.md"><img src="https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg"></a>
   <a href="https://prettier.io/"><img alt="Code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg"></a>
   <a href="https://conventionalcommits.org"><img alt="Conventional Commits" src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white"></a>
