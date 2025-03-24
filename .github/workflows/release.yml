@@ -1,8 +1,9 @@
 name: Release
 
 on:
-  push:
-    branches: ['main']
+  pull_request:
+    branches: [main]
+    types: [closed]
 
 env:
   NODE_VERSION: 23.x
