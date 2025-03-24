@@ -2,10 +2,11 @@ name: Release
 
 on:
   push:
-    branches: [main]
+    tags: ["^[0-9]+\\.[0-9]+\\.[0-9]+\\(-(rc|beta|alpha)\\.[0-9]+)?$"]
 
 env:
   NODE_VERSION: 23.x
+  allowed: ${{ github.ref_protected && startsWith(github.ref, 'refs/tags/') }}
   prerelease: ${{ contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') || contains(github.ref_name, 'rc') }}
 
 permissions:
@@ -13,8 +14,8 @@ permissions:
 
 jobs:
   build:
-    #if: ${{ startsWith(github.ref, 'refs/tags/') }}
     name: Build
+    if: ${{ env.allowed }}
     runs-on: ubuntu-latest
 
     permissions:
@@ -23,7 +24,7 @@ jobs:
       attestations: write # attest-build-provenance
     steps:
       - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2'
       - name: Setup Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
         with:
@@ -64,7 +65,7 @@ jobs:
 
   release:
     name: Release
-    if: startsWith(github.ref, 'refs/tags/')
+    if: ${{ env.allowed }}
     needs: build
     runs-on: ubuntu-latest
 
@@ -91,7 +92,7 @@ jobs:
 
   publish:
     name: Publish
-    if: startsWith(github.ref, 'refs/tags/')
+    if: ${{ env.allowed }}
     needs: release
     runs-on: ubuntu-latest
 
