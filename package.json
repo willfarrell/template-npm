@@ -1,6 +1,6 @@
 {
   "name": "@willfarrell/template-npm",
-  "version": "0.0.0-alpha.23",
+  "version": "0.0.0-alpha.24",
   "description": "Repository template for npm packages",
   "private": false,
   "type": "module",
