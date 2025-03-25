@@ -73,7 +73,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: read
+      contents: write # softprops/action-gh-release
     steps:
       - name: Setup Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
