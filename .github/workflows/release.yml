@@ -92,6 +92,7 @@ jobs:
           draft: true
           prerelease: ${{ env.prerelease == 'true' }}
           tag_name: ${{ env.tag }}
+          generate_release_notes: true
           files: |
             **/*.tgz
 
