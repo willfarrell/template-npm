@@ -144,6 +144,8 @@ https://github.com/willfarrell/template-npm/blob/main/docs/ROADMAP.md
 
 **The project MUST include documentation of the architecture (aka high-level design) of the software produced by the project. If the project does not produce software, select "not applicable" (N/A).**
 
+N/A?
+
 **The project MUST document what the user can and cannot expect in terms of security from the software produced by the project (its "security requirements").**
 
 https://github.com/willfarrell/template-npm/security
@@ -191,6 +193,14 @@ https://github.com/willfarrell/template-npm/blob/main/docs/RELEASE.md
 **The project MUST clearly identify small tasks that can be performed by new or casual contributors.**
 
 https://github.com/willfarrell/template-npm/blob/main/docs/CONTRIBUTING.md
+
+**The project MUST require two-factor authentication (2FA) for developers for changing a central repository or accessing sensitive data (such as private vulnerability reports). This 2FA mechanism MAY use mechanisms without cryptographic mechanisms such as SMS, though that is not recommended.** [gold]
+
+https://github.com/willfarrell/template-npm/blob/main/docs/GOVERNANCE.md
+
+**The project's two-factor authentication (2FA) SHOULD use cryptographic mechanisms to prevent impersonation. Short Message Service (SMS) based 2FA, by itself, does NOT meet this criterion, since it is not encrypted.** [gold]
+
+https://github.com/willfarrell/template-npm/blob/main/docs/GOVERNANCE.md
 
 #### Unique version numbering [passing]
 
@@ -319,6 +329,10 @@ This is met via npm.
 #### Secure development knowledge [silver]
 
 https://github.com/willfarrell/template-npm/blob/main/docs/CONTRIBUTING.md
+
+#### Secure release [silver]
+
+This is met via npm & GitHub Actions
 
 #### Other security issues [silver]
 

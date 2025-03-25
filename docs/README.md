@@ -7,10 +7,8 @@
   <a href="https://packagephobia.com/result?p=@willfarrell/template-npm"><img src="https://packagephobia.com/badge?p=@willfarrell/template-npm" alt="npm install size"></a>
   <a href="https://www.npmjs.com/package/@willfarrell/template-npm">
   <img alt="npm weekly downloads" src="https://img.shields.io/npm/dw/@willfarrell/template-npm.svg"></a>
-  <br/>
-  <a href="https://snyk.io/test/github/@willfarrell/template-npm"><img src="https://snyk.io/test/github/willfarrell/template-npm/badge.svg" alt="snyk Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/willfarrell/template-npm"></a>
-  <a href="https://socket.dev/npm/package/@willfarrell/template-npm"><img src="https://socket.dev/api/badge/npm/package/@willfarrell/template-npm" alt="Socket Supply chain Security"></a>
-  <a href="https://scorecard.dev/viewer/?uri=github.com/willfarrell/template-npm"><img src="https://api.scorecard.dev/projects/github.com/willfarrell/template-npm/badge" alt="Open Source Security Foundation (OpenSSF) Scorecard"></a>
+  <a href="https://www.npmjs.com/package/@willfarrell/template-npm#provenance">
+  <img alt="npm provenance" src="https://img.shields.io/badge/provenance-Yes-brightgreen"></a>
 </p>
 <p>You can read the documentation at: <a href="https://github.com/willfarrell/template-npm">https://github.com/willfarrell/template-npm</a></p>
 </div>
