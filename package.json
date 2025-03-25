@@ -35,7 +35,7 @@
     "test:sast:semgrep": "semgrep scan --config auto",
     "test:sast:trufflehog": "trufflehog filesystem --only-verified --log-level=-1 ./",
     "test:perf": "node --test ./**/*.perf.js",
-    "test:dast": "npm run test:dast:fuzz && npm run test:dast:fuzz",
+    "test:dast": "npm run test:dast:fuzz && npm run test:dast:zap",
     "test:dast:fuzz": "node --test ./**/*.fuzz.js",
     "test:dast:zap": ""
   },
