@@ -1,6 +1,5 @@
 /**
  * Sample function
- * @constructor
  * @param {object} options - Not used, future
  */
 export const fct = (options) => {
