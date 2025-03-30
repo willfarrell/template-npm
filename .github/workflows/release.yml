@@ -100,7 +100,7 @@ jobs:
             **/*.tgz
     outputs:
       tag: ${{ needs.build.outputs.tag }}
-      prerelease: ${{ needs.build.outputs.prerelease}}
+      prerelease: ${{ needs.build.outputs.prerelease }}
 
   publish:
     name: Publish
