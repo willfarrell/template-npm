@@ -7,14 +7,12 @@ See [milestones](https://github.com/willfarrell/template-npm/milestones) for pla
 - Setup GitHub org-bot account
   - Owns tokens for org
 - Monorepo changes
-- total code coverage badge (%)
 - Threat modelling
 
 ## Scripts
 
 ## Actions
 
-- `test-unit` Error on reduction of code coverage
 - `test-perf` Error on reduction of performance
 - automate secret rotation (npm)
 - automate secret rotation (release-please)
