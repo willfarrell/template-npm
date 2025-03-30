@@ -22,7 +22,7 @@ A clear and concise description of what you expected to happen.
 
 **Environment (please complete the following information):**
 
-- Node.js: [e.g. 23]
+- Node.js: [e.g. 24]
 - `@willfarrell/template-npm`: [e.g. 0.0.0]
 
 **Additional context**
