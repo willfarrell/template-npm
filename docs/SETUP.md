@@ -70,9 +70,10 @@ You will need the following secrets setup:
 
 Actions secrets and variables can be added at the [organization level](https://github.com/organizations/willfarrell/settings/secrets/actions) or the [repository level](https://github.com/willfarrell/template-npm/settings/secrets/actions).
 
-## Release Please (future)
+## GitHub Apps
 
-Update `signoff` in `.github/workflows/.release-please-config.json` to match owner of personal access token for `PR_TOKEN` set above. Use `username@users.noreply.github.com` as the email address.
+- [DCO](https://github.com/apps/dco)
+- [Release Please](https://github.com/apps/release-please)
 
 ## Open Source Security Foundation Report
 
