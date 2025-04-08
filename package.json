@@ -1,6 +1,6 @@
 {
 	"name": "@willfarrell/template-npm",
-	"version": "1.0.0",
+	"version": "0.0.0",
 	"description": "Repository template for npm packages",
 	"private": false,
 	"type": "module",
@@ -8,9 +8,7 @@
 		"node": ">=23"
 	},
 	"engineStrict": true,
-	"files": [
-		"index.js"
-	],
+	"files": ["index.js"],
 	"main": "index.js",
 	"exports": {
 		".": {
