@@ -21,7 +21,6 @@
 		"rules": {
 			"recommended": true,
 			"correctness": {
-				"noConstantMathMinMaxClamp": "error",
 				"noUnusedImports": "error",
 				"noUnusedVariables": "error"
 			}
