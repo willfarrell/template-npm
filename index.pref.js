@@ -5,18 +5,18 @@ const suite = new Bench();
 
 const run = fct();
 suite
-  .add("bool", function () {
-    run(true);
-  })
-  .add("int", function () {
-    run(1);
-  })
-  .add("string", function () {
-    run("true");
-  });
+	.add("bool", () => {
+		run(true);
+	})
+	.add("int", () => {
+		run(1);
+	})
+	.add("string", () => {
+		run("true");
+	});
 
-suite.addEventListener("complete", function () {
-  console.table(suite.table());
+suite.addEventListener("complete", () => {
+	console.table(suite.table());
 });
 
 suite.run();

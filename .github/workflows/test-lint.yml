@@ -33,4 +33,5 @@ jobs:
         run: |
           npm ci
       - name: Linting
-        run: npm run test:lint:ci
+        run: |
+          biome ci --no-errors-on-unmatched
