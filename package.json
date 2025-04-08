@@ -1,66 +1,62 @@
 {
-  "name": "@willfarrell/template-npm",
-  "version": "0.0.0",
-  "description": "Repository template for npm packages",
-  "private": false,
-  "type": "module",
-  "engines": {
-    "node": ">=23"
-  },
-  "engineStrict": true,
-  "files": [
-    "index.js"
-  ],
-  "main": "index.js",
-  "exports": {
-    ".": {
-      "import": {
-        "default": "./index.js"
-      }
-    }
-  },
-  "scripts": {
-    "prepare": "husky",
-    "git:pre-commit": "lint-staged && npm run git:test-staged",
-    "git:commit-msg": "commitlint --config commitlint.config.cjs --edit",
-    "git:lint-staged": "prettier --check --log-level error",
-    "git:test-staged": "node --test",
-    "build": "",
-    "test": "npm run test:lint && npm run test:unit && npm run test:sast && npm run test:perf && npm run test:dast",
-    "test:lint": "prettier --write --log-level warn \"./**/*.{js,cjs,mjs,json}\"",
-    "test:lint:ci": "prettier --check --log-level error \"./**/*.{js,cjs,mjs,json}\"",
-    "test:unit": "node --test --experimental-test-coverage --test-coverage-lines=90 --test-coverage-branches=80 --test-coverage-functions=80",
-    "test:sast": "npm run test:sast:sandworm && npm run test:sast:semgrep && npm run test:sast:trufflehog",
-    "test:sast:sandworm": "sandworm-audit --skip-all --show-tips false",
-    "test:sast:semgrep": "semgrep scan --config auto",
-    "test:sast:trufflehog": "trufflehog filesystem --only-verified --log-level=-1 ./",
-    "test:perf": "node --test ./**/*.perf.js",
-    "test:dast": "npm run test:dast:fuzz && npm run test:dast:zap",
-    "test:dast:fuzz": "node --test ./**/*.fuzz.js",
-    "test:dast:zap": ""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/willfarrell/template-npm.git"
-  },
-  "keywords": [],
-  "author": "willfarrell",
-  "license": "MIT",
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/willfarrell"
-  },
-  "bugs": {
-    "url": "https://github.com/willfarrell/template-npm/issues"
-  },
-  "homepage": "https://github.com/willfarrell/template-npm",
-  "devDependencies": {
-    "@commitlint/cli": "^19.0.0",
-    "@commitlint/config-conventional": "^19.0.0",
-    "fast-check": "^4.0.0",
-    "husky": "^9.0.0",
-    "lint-staged": "^15.0.0",
-    "prettier": "^3.0.0",
-    "tinybench": "^4.0.0"
-  }
+	"name": "@willfarrell/template-npm",
+	"version": "0.0.0",
+	"description": "Repository template for npm packages",
+	"private": false,
+	"type": "module",
+	"engines": {
+		"node": ">=23"
+	},
+	"engineStrict": true,
+	"files": ["index.js"],
+	"main": "index.js",
+	"exports": {
+		".": {
+			"import": {
+				"default": "./index.js"
+			}
+		}
+	},
+	"scripts": {
+		"prepare": "husky",
+		"git:pre-commit": "npm run git:lint-staged && npm run git:test-staged",
+		"git:commit-msg": "commitlint --config commitlint.config.cjs --edit",
+		"git:lint-staged": "npx @biomejs/biome check --staged",
+		"git:test-staged": "node --test",
+		"test": "npm run test:lint && npm run test:unit && npm run test:sast && npm run test:perf && npm run test:dast",
+		"test:lint": "npx @biomejs/biome check --write",
+		"test:lint:ci": "npx @biomejs/biome ci",
+		"test:unit": "node --test --experimental-test-coverage --test-coverage-lines=90 --test-coverage-branches=80 --test-coverage-functions=80",
+		"test:sast": "npm run test:sast:sandworm && npm run test:sast:semgrep && npm run test:sast:trufflehog",
+		"test:sast:sandworm": "sandworm-audit --skip-all --show-tips false",
+		"test:sast:semgrep": "semgrep scan --config auto",
+		"test:sast:trufflehog": "trufflehog filesystem --only-verified --log-level=-1 ./",
+		"test:perf": "node --test ./**/*.perf.js",
+		"test:dast": "npm run test:dast:fuzz && npm run test:dast:zap",
+		"test:dast:fuzz": "node --test ./**/*.fuzz.js",
+		"test:dast:zap": ""
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/willfarrell/template-npm.git"
+	},
+	"keywords": [],
+	"author": "willfarrell",
+	"license": "MIT",
+	"funding": {
+		"type": "github",
+		"url": "https://github.com/sponsors/willfarrell"
+	},
+	"bugs": {
+		"url": "https://github.com/willfarrell/template-npm/issues"
+	},
+	"homepage": "https://github.com/willfarrell/template-npm",
+	"devDependencies": {
+		"@biomejs/biome": "^1.0.0",
+		"@commitlint/cli": "^19.0.0",
+		"@commitlint/config-conventional": "^19.0.0",
+		"fast-check": "^4.0.0",
+		"husky": "^9.0.0",
+		"tinybench": "^4.0.0"
+	}
 }
