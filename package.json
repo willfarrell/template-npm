@@ -19,10 +19,11 @@
 	},
 	"scripts": {
 		"prepare": "husky",
-		"git:pre-commit": "npm run git:lint-staged && npm run git:test-staged",
+		"git:pre-commit": "npm run git:test",
 		"git:commit-msg": "commitlint --config commitlint.config.cjs --edit",
+		"git:test": "npm run git:lint-staged && npm run git:unit-staged",
 		"git:lint-staged": "biome check --staged --no-errors-on-unmatched --files-ignore-unknown=true",
-		"git:test-staged": "node --test",
+		"git:unit-staged": "node --test",
 		"test": "npm run test:lint && npm run test:unit && npm run test:sast && npm run test:perf && npm run test:dast",
 		"test:lint": "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true",
 		"test:unit": "node --test --experimental-test-coverage --test-coverage-lines=90 --test-coverage-branches=80 --test-coverage-functions=80",
