@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 env:
-  NODE_VERSION: 23.x
+  NODE_VERSION: 24.x
 
 permissions:
   contents: read
@@ -29,13 +29,6 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           registry-url: https://registry.npmjs.org
-      - name: Cache npm
-        uses: actions/cache@d4323d4df104b026a6aa633fdb11d772146be0bf # v4.2.2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
       - name: Set env
         run: |
           tag=$(npm pkg get version | xargs)
@@ -69,7 +62,7 @@ jobs:
             **/*.tgz
     outputs:
       tag: ${{ env.tag }}
-      prerelease: ${{ env.prerelease == 'true' }}
+      prerelease: ${{ env.prerelease }}
 
   release:
     name: Release
@@ -121,14 +114,14 @@ jobs:
         with:
           name: ${{ needs.release.outputs.tag }}
       - name: npm publish (next)
-        if: ${{ needs.release.outputs.prerelease }}
+        if: ${{ needs.release.outputs.prerelease == 'true' }}
         run: |
           find . -name '*.tgz' -exec npm publish --tag next --provenance --access public {} \;
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        #env:
+        #  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: npm publish (latest)
-        if: ${{ !needs.release.outputs.prerelease }}
+        if: ${{ needs.release.outputs.prerelease == 'false' }}
         run: |
           find . -name '*.tgz' -exec npm publish --tag latest --provenance --access public {} \;
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        #env:
+        #  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

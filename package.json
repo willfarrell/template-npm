@@ -1,14 +1,16 @@
 {
 	"name": "@willfarrell/template-npm",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"description": "Repository template for npm packages",
 	"private": false,
 	"type": "module",
 	"engines": {
-		"node": ">=23"
+		"node": ">=24"
 	},
 	"engineStrict": true,
-	"files": ["index.js"],
+	"files": [
+		"index.js"
+	],
 	"main": "index.js",
 	"exports": {
 		".": {
@@ -22,10 +24,11 @@
 		"git:pre-commit": "npm run git:test",
 		"git:commit-msg": "commitlint --config commitlint.config.cjs --edit",
 		"git:test": "npm run git:lint-staged && npm run git:unit-staged",
-		"git:lint-staged": "biome check --staged --no-errors-on-unmatched --files-ignore-unknown=true",
+		"git:lint-staged": "npm run test:lint",
 		"git:unit-staged": "node --test",
+		"lint": "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true",
 		"test": "npm run test:lint && npm run test:unit && npm run test:sast && npm run test:perf && npm run test:dast",
-		"test:lint": "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true",
+		"test:lint": "biome check --staged --no-errors-on-unmatched --files-ignore-unknown=true",
 		"test:unit": "node --test --experimental-test-coverage --test-coverage-lines=90 --test-coverage-branches=80 --test-coverage-functions=80",
 		"test:sast": "npm run test:sast:sandworm && npm run test:sast:semgrep && npm run test:sast:trufflehog",
 		"test:sast:sandworm": "sandworm-audit --skip-all --show-tips false",
@@ -52,11 +55,21 @@
 	},
 	"homepage": "https://github.com/willfarrell/template-npm",
 	"devDependencies": {
-		"@biomejs/biome": "^1.0.0",
-		"@commitlint/cli": "^19.0.0",
-		"@commitlint/config-conventional": "^19.0.0",
+		"@biomejs/biome": "^2.0.0",
+		"@commitlint/cli": "^20.0.0",
+		"@commitlint/config-conventional": "^20.0.0",
 		"fast-check": "^4.0.0",
 		"husky": "^9.0.0",
-		"tinybench": "^4.0.0"
+		"tinybench": "^5.0.0"
+	},
+	"devEngines": {
+		"runtime": {
+			"name": "node",
+			"onFail": "error"
+		},
+		"packageManager": {
+			"name": "npm",
+			"onFail": "error"
+		}
 	}
 }
