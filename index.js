@@ -1,8 +1,11 @@
 /**
  * Sample function
- * @param {object} options - Not used, future
  */
 export const fct = () => {
+	/**
+	 * Sample function
+	 * @param {input} any
+	 */
 	return (input) => {
 		if (input) {
 			return true;

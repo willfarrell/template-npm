@@ -13,7 +13,8 @@ Automated using `.github/workflows/ossf-scorecard.yml`. Details on check and rem
 ### General
 
 1. Go to [General](https://github.com/willfarrell/template-npm/settings)
-1. Enable `Require contributors to sign off on web-based commits Loadings`
+1. Enable `Require contributors to sign off on web-based commits`
+1. Enable `Enable release immutability`
 
 ### Rulesets
 
@@ -36,7 +37,7 @@ Automated using `.github/workflows/ossf-scorecard.yml`. Details on check and rem
       1. Enable `Require approval of the most recent reviewable push` [Branch-Protection tier 2]
    1. Check `Require status checks to pass` to be `checked`
       1. Enable `Require branches to be up to date before merging` [Branch-Protection tier 2]
-      1. Click `Add checks`, Add in GitHub Action job names (ex `Test (lint) (23.x)`) [Branch-Protection tier 2]
+      1. Click `Add checks`, Add in GitHub Action job names (ex `Test (lint) (24.x)`) [Branch-Protection tier 2]
    1. Enable `Block force pushes` [Branch-Protection tier 1]
    1. Enable `Require code scanning results`
       1. Click `Add tool`, select `CodeQL`
@@ -72,6 +73,7 @@ Actions secrets and variables can be added at the [organization level](https://g
 
 ## GitHub Apps
 
+- [Allstar](https://github.com/apps/allstar-app)
 - [DCO](https://github.com/apps/dco)
 - [Release Please](https://github.com/apps/release-please)
 
