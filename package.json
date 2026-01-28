@@ -30,10 +30,10 @@
 		"test": "npm run test:lint && npm run test:unit && npm run test:sast && npm run test:perf && npm run test:dast",
 		"test:lint": "biome check --staged --no-errors-on-unmatched --files-ignore-unknown=true",
 		"test:unit": "node --test --experimental-test-coverage --test-coverage-lines=90 --test-coverage-branches=80 --test-coverage-functions=80",
-		"test:sast": "npm run test:sast:lockfile && npm run test:sast:sandworm && npm run test:sast:semgrep && npm run test:sast:trufflehog",
+		"test:sast": "npm run test:sast:lockfile && npm run test:sast:trivy && npm run test:sast:semgrep && npm run test:sast:trufflehog",
 		"test:sast:lockfile": "lockfile-lint --path package-lock.json --type npm --allowed-hosts npm --validate-https",
-		"test:sast:sandworm": "sandworm-audit --skip-all --show-tips false",
 		"test:sast:semgrep": "semgrep scan --config auto",
+		"test:sast:trivy": "trivy fs --scanners vuln,license --include-dev-deps --ignored-licenses 0BSD,Apache-2.0,BSD-1-Clause,BSD-2-Clause,BSD-3-Clause,CC0-1.0,CC-BY-4.0,ISC,MIT --exit-code 1 --disable-telemetry .",
 		"test:sast:trufflehog": "trufflehog filesystem --only-verified --log-level=-1 ./",
 		"test:perf": "node --test ./**/*.perf.js",
 		"test:dast": "npm run test:dast:fuzz && npm run test:dast:zap",
@@ -61,7 +61,7 @@
 		"@commitlint/config-conventional": "^20.0.0",
 		"fast-check": "^4.0.0",
 		"husky": "^9.0.0",
-		"tinybench": "^5.0.0"
+		"tinybench": "^6.0.0"
 	},
 	"devEngines": {
 		"runtime": {
@@ -72,5 +72,8 @@
 			"name": "npm",
 			"onFail": "error"
 		}
-	}
+	},
+	"workspaces": [
+		".github"
+	]
 }
