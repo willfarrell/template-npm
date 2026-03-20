@@ -1,9 +1,9 @@
-name: 'Test (sast)'
+name: Tests (sast)
 
 on:
   pull_request:
   schedule:
-    - cron: '43 3 * * 5'
+    - cron: "43 3 * * 5"
   workflow_dispatch:
 
 env:
@@ -22,7 +22,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Trivy
-        uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8 # v0.33.1
+        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
         with:
           scanners: vuln
           scan-type: fs
@@ -31,7 +31,7 @@ jobs:
           ignore-unfixed: true
           exit-code: 1
           format: github
-  
+
   trivy-license:
     name: "Trivy: Licensing"
     runs-on: ubuntu-latest
@@ -48,7 +48,7 @@ jobs:
         run: |
           npm ci --ignore-scripts
       - name: Trivy
-        uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8 # v0.33.1
+        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
         with:
           scanners: license
           scan-type: fs
@@ -56,13 +56,13 @@ jobs:
           hide-progress: true
           exit-code: 0
           format: table
-  
+
   # https://github.com/oss-review-toolkit/ort-ci-github-action
   # ort:
   #   name: "OSS Review Toolkit: Licensing"
   #   runs-on: ubuntu-latest
   #   if: (github.actor != 'dependabot[bot]')
-  
+
   #   steps:
   #     - name: Checkout repository
   #       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -72,12 +72,12 @@ jobs:
   #         allow-dynamic-versions: "true"
   #         ort-cli-args: "-P ort.analyzer.enabledPackageManagers=NPM"
   #         fail-on: "violations"
-  
+
   lockfile:
     name: "lockfile-lint: SAST package-lock.json"
     runs-on: ubuntu-latest
     if: (github.actor != 'dependabot[bot]')
-  
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -92,10 +92,11 @@ jobs:
       - name: lockfile-lint
         run: |
           ./node_modules/.bin/lockfile-lint --path package-lock.json --type npm --allowed-hosts npm --validate-https
-  
+
+
   # https://github.com/github/codeql-action
   codeql:
-    name: 'CodeQL: SAST'
+    name: "CodeQL: SAST"
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -109,25 +110,25 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@babb554ede22fd5605947329c4d04d8e7a0b8155 # v2.27.7
+        uses: github/codeql-action/init@9e907b5e64f6b83e7804b09294d44122997950d6 # v4.32.3
         with:
           languages: ${{ matrix.language }}
           queries: +security-and-quality
 
       - name: Autobuild
-        uses: github/codeql-action/autobuild@babb554ede22fd5605947329c4d04d8e7a0b8155 # v2.27.7
+        uses: github/codeql-action/autobuild@9e907b5e64f6b83e7804b09294d44122997950d6 # v4.32.3
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@babb554ede22fd5605947329c4d04d8e7a0b8155 # v2.27.7
+        uses: github/codeql-action/analyze@9e907b5e64f6b83e7804b09294d44122997950d6 # v4.32.3
         with:
-          category: '/language:${{ matrix.language }}'
+          category: "/language:${{ matrix.language }}"
 
   # https://semgrep.dev/docs/semgrep-ci/sample-ci-configs/#github-actions
   semgrep:
-    name: 'semgrep: SAST'
+    name: "semgrep: SAST"
     runs-on: ubuntu-latest
 
     container:
@@ -137,8 +138,6 @@ jobs:
     if: (github.actor != 'dependabot[bot]')
     steps:
       - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-
-      # https://semgrep.dev/docs/semgrep-ci/sample-ci-configs/#github-actions
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: semgrep
         run: semgrep ci
