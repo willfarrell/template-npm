@@ -20,7 +20,7 @@
 		}
 	},
 	"scripts": {
-		"prepare": "husky",
+		"prepare": "husky || true",
 		"git:pre-commit": "npm run git:test",
 		"git:commit-msg": "commitlint --config commitlint.config.cjs --edit",
 		"git:test": "npm run git:lint-staged && npm run git:unit-staged",
