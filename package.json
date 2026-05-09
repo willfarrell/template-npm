@@ -58,8 +58,8 @@
 	"homepage": "https://github.com/willfarrell/template-npm",
 	"devDependencies": {
 		"@biomejs/biome": "^2.0.0",
-		"@commitlint/cli": "^20.0.0",
-		"@commitlint/config-conventional": "^20.0.0",
+		"@commitlint/cli": "^21.0.0",
+		"@commitlint/config-conventional": "^21.0.0",
 		"fast-check": "^4.0.0",
 		"husky": "^9.0.0",
 		"tinybench": "^6.0.0"
