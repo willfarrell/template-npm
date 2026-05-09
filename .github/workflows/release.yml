@@ -95,6 +95,73 @@ jobs:
       tag: ${{ needs.build.outputs.tag }}
       prerelease: ${{ needs.build.outputs.prerelease }}
 
+  coverage:
+    name: Coverage badge
+    if: ${{ github.event.pull_request.merged }}
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write # push to gh-reports branch
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: https://registry.npmjs.org
+      - name: Install dependencies
+        run: |
+          npm ci --ignore-scripts
+      - name: Run unit tests with LCOV coverage
+        run: |
+          node --test --experimental-test-coverage \
+            --test-reporter=lcov --test-reporter-destination=coverage.lcov
+      - name: Compute coverage badge JSON
+        run: |
+          cat > /tmp/badge.mjs <<'EOF'
+          import fs from 'node:fs'
+          const lcov = fs.readFileSync('coverage.lcov', 'utf8')
+          const sum = (key) => (lcov.match(new RegExp(`^${key}:(\\d+)`, 'gm')) || [])
+            .reduce((s, m) => s + parseInt(m.split(':')[1], 10), 0)
+          const pct = (h, f) => f === 0 ? 100 : (h * 100) / f
+          const lines = pct(sum('LH'), sum('LF'))
+          const branches = pct(sum('BRH'), sum('BRF'))
+          const fns = pct(sum('FNH'), sum('FNF'))
+          const min = Math.floor(Math.min(lines, branches, fns))
+          const color =
+            min >= 90 ? 'brightgreen' :
+            min >= 80 ? 'green' :
+            min >= 70 ? 'yellowgreen' :
+            min >= 60 ? 'yellow' :
+            min >= 50 ? 'orange' : 'red'
+          fs.writeFileSync('/tmp/coverage-badge.json', JSON.stringify({
+            schemaVersion: 1, label: 'coverage', message: min + '%', color
+          }))
+          console.log(`lines=${lines.toFixed(1)} branches=${branches.toFixed(1)} fns=${fns.toFixed(1)} min=${min}% color=${color}`)
+          EOF
+          node /tmp/badge.mjs
+      - name: Publish badge to gh-reports branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if git ls-remote --exit-code --heads origin gh-reports >/dev/null 2>&1; then
+            git fetch origin gh-reports
+            git switch gh-reports
+          else
+            git switch --orphan gh-reports
+          fi
+          mkdir -p coverage
+          cp /tmp/coverage-badge.json coverage/badge.json
+          git add coverage/badge.json
+          if git diff --cached --quiet; then
+            echo "no badge changes"
+          else
+            pct=$(jq -r .message coverage/badge.json)
+            git commit -m "chore(gh-reports): coverage ${pct}"
+            git push -u origin gh-reports
+          fi
+
   publish:
     name: Publish
     needs: release
