@@ -129,8 +129,9 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# Benchmark output (CI emits this; consumed by github-action-benchmark)
+# CI artifacts (emitted by node --test reporters; consumed by github-action-benchmark)
 test-perf-results.json
+test-unit-results.json
 
 # OS
 .DS_Store

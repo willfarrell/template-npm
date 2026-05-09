@@ -1,0 +1,28 @@
+name: Update coverage badge
+description: Compute a shields.io endpoint badge from a customBiggerIsBetter results file (using the lowest of all metrics) and push it to gh-reports/unit/badge.json.
+
+inputs:
+  results-file:
+    description: Path to the customBiggerIsBetter JSON results file, relative to the workspace.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout gh-reports
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      with:
+        ref: gh-reports
+        path: gh-reports
+    - name: Write & push badge
+      shell: bash
+      working-directory: gh-reports
+      run: |
+        mkdir -p unit
+        bash "${GITHUB_ACTION_PATH}/badge.sh" "${GITHUB_WORKSPACE}/${{ inputs.results-file }}" unit/badge.json
+        git add unit/badge.json
+        git diff --cached --quiet && exit 0
+        git -c user.name='github-actions[bot]' \
+            -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit -m 'chore: update coverage badge'
+        git push
