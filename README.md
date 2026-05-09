@@ -18,6 +18,7 @@
   <br/>
   <a href="https://scorecard.dev/viewer/?uri=github.com/willfarrell/template-npm"><img src="https://api.scorecard.dev/projects/github.com/willfarrell/template-npm/badge" alt="Open Source Security Foundation (OpenSSF) Scorecard"></a>
   <a href="https://slsa.dev"><img src="https://slsa.dev/images/gh-badge-level3.svg" alt="SLSA 3"></a>
+  <a href="https://github.com/willfarrell/template-npm/blob/main/docs/SPVS-COMPLIANCE.md"><img src="https://img.shields.io/badge/OWASP%20SPVS-1.5%20L2%20(self--attested)-blue" alt="OWASP SPVS 1.5 Level 2 (self-attested)"></a>
   <a href="https://github.com/willfarrell/template-npm/blob/main/docs/CODE_OF_CONDUCT.md"><img src="https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg"></a>
   <a href="https://biomejs.dev"><img alt="Checked with Biome" src="https://img.shields.io/badge/Checked_with-Biome-60a5fa?style=flat&logo=biome"></a>
   <a href="https://conventionalcommits.org"><img alt="Conventional Commits" src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white"></a>
