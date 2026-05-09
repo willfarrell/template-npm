@@ -9,5 +9,7 @@
 	"bump-minor-pre-major": true,
 	"bump-patch-for-minor-pre-major": true,
 	"always-update": true,
-	"skip-github-release": true
+	"skip-github-release": true,
+	"include-v-in-tag": false,
+	"include-component-in-tag": false
 }
