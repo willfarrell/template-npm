@@ -12,9 +12,9 @@ Before deploying a new version, update all dependancies where possible without b
 
 ### Publishing
 
-1. Release Please Bot will trigger automatically and create a PR with the version & changelog update
-1. Change PR to merge into `main`
+1. Release Please Bot will trigger automatically and create a PR against `develop` with the version & changelog update
+1. Merge the Release Please PR into `develop`
+1. `prerelease.yml` will automatically open a `develop` -> `main` PR titled `release: vX.Y.Z`
 1. Preview PR
 1. Merge PR, this will trigger `release.yml`
-1. Delete Branch
-1. Git merge `main` back into `develop`
+1. Delete branch

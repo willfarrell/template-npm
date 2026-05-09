@@ -1,0 +1,44 @@
+name: Prerelease
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [develop]
+
+permissions:
+  contents: read
+
+jobs:
+  promote:
+    name: Open develop -> main release PR
+    if: ${{ github.event.pull_request.merged && startsWith(github.event.pull_request.head.ref, 'release-please--') }}
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: develop
+      - name: Read version
+        id: version
+        run: |
+          version=$(node -p "require('./package.json').version")
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+      - name: Open release PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          existing=$(gh pr list --base main --head develop --state open --json number --jq '.[0].number // empty')
+          if [ -n "${existing}" ]; then
+            gh pr edit "${existing}" --title "release: v${VERSION}"
+            exit 0
+          fi
+          gh pr create \
+            --base main \
+            --head develop \
+            --title "release: v${VERSION}" \
+            --body "Automated promotion of develop to main for v${VERSION}. Merging this PR triggers \`release.yml\` (tag, draft GitHub release, npm publish)."
