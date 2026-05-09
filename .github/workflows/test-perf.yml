@@ -2,17 +2,23 @@ name: Tests (perf)
 
 on:
   pull_request:
+  push:
+    branches: [main]
 
 env:
   NODE_VERSION: 24.x
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
-  unit:
+  pr:
+    if: github.event_name == 'pull_request'
     name: Tests (perf)
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: write
 
     steps:
       - name: Checkout repository
@@ -30,4 +36,67 @@ jobs:
           npm run build --if-present
       - name: Benchmarking tests
         run: |
-          npm run test:perf
+          node --test \
+            --test-reporter=spec \
+            --test-reporter-destination=stdout \
+            --test-reporter=./.github/test-perf-reporter.js \
+            --test-reporter-destination=test-perf-results.json \
+            "./**/*.perf.js"
+      - name: Compare & comment
+        uses: benchmark-action/github-action-benchmark@52576c92bccf6ac60c8223ec7eb2565637cae9ba # v1.22.1
+        with:
+          name: tinybench
+          tool: customBiggerIsBetter
+          output-file-path: test-perf-results.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          gh-pages-branch: gh-reports
+          benchmark-data-dir-path: perf
+          auto-push: false
+          comment-on-alert: true
+          summary-always: true
+          alert-threshold: '200%'
+          fail-on-alert: false
+
+  push:
+    if: github.event_name == 'push'
+    name: Baseline (perf)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: https://registry.npmjs.org
+      - name: Install dependencies
+        run: |
+          npm ci --ignore-scripts
+      - name: Build
+        run: |
+          npm run build --if-present
+      - name: Benchmarking tests
+        run: |
+          node --test \
+            --test-reporter=spec \
+            --test-reporter=./.github/test-perf-reporter.js \
+            --test-reporter-destination=stdout \
+            --test-reporter-destination=test-perf-results.json \
+            "./**/*.perf.js"
+      - name: Persist baseline
+        uses: benchmark-action/github-action-benchmark@52576c92bccf6ac60c8223ec7eb2565637cae9ba # v1.22.1
+        with:
+          name: tinybench
+          tool: customBiggerIsBetter
+          output-file-path: test-perf-results.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          gh-pages-branch: gh-reports
+          benchmark-data-dir-path: perf
+          auto-push: true
+          summary-always: true
+          alert-threshold: '200%'
+          fail-on-alert: false
