@@ -1,81 +1,84 @@
 {
-	"name": "@willfarrell/template-npm",
-	"version": "0.0.1",
-	"description": "Repository template for npm packages",
-	"private": false,
-	"type": "module",
-	"packageManager": "npm@12.0.1+sha512.L5T9i/YAQWQQWqTS/xZxJkei/9zcu99hCeE4qi41IyBVV7mRQad3qc2JfuOktwmH+qwGI/V2rbCL+/UYxb1+RQA==",
-	"engines": {
-		"node": ">=24"
-	},
-	"engineStrict": true,
-	"files": [
-		"index.js"
-	],
-	"main": "index.js",
-	"exports": {
-		".": {
-			"import": {
-				"default": "./index.js"
-			}
-		}
-	},
-	"scripts": {
-		"prepare": "husky",
-		"git:pre-commit": "npm run git:test",
-		"git:commit-msg": "commitlint --config commitlint.config.cjs --edit",
-		"git:test": "npm run git:lint-staged && npm run git:unit-staged",
-		"git:lint-staged": "npm run test:lint",
-		"git:unit-staged": "node --test",
-		"lint": "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true",
-		"test": "npm run test:lint && npm run test:unit && npm run test:sast && npm run test:perf && npm run test:dast",
-		"test:lint": "biome check --staged --no-errors-on-unmatched --files-ignore-unknown=true",
-		"test:unit": "node --test --experimental-test-coverage --test-coverage-lines=90 --test-coverage-branches=80 --test-coverage-functions=80",
-		"test:sast": "npm run test:sast:license && npm run test:sast:lockfile && npm run test:sast:trivy && npm run test:sast:semgrep && npm run test:sast:trufflehog",
-		"test:sast:license": "license-check-and-add check -f license.json",
-		"test:sast:lockfile": "lockfile-lint --path package-lock.json --type npm --allowed-hosts npm --validate-https",
-		"test:sast:semgrep": "semgrep scan --config auto",
-		"test:sast:trivy": "trivy fs --scanners vuln,license --include-dev-deps --ignored-licenses 0BSD,Apache-2.0,BSD-1-Clause,BSD-2-Clause,BSD-3-Clause,CC0-1.0,CC-BY-4.0,ISC,MIT --exit-code 1 --disable-telemetry .",
-		"test:sast:trufflehog": "trufflehog filesystem --only-verified --log-level=-1 ./",
-		"test:perf": "node --test ./**/*.perf.js",
-		"test:dast": "npm run test:dast:fuzz && npm run test:dast:zap",
-		"test:dast:fuzz": "node --test ./**/*.fuzz.js",
-		"test:dast:zap": ""
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/willfarrell/template-npm.git"
-	},
-	"keywords": [],
-	"author": "willfarrell",
-	"license": "MIT",
-	"funding": {
-		"type": "github",
-		"url": "https://github.com/sponsors/willfarrell"
-	},
-	"bugs": {
-		"url": "https://github.com/willfarrell/template-npm/issues"
-	},
-	"homepage": "https://github.com/willfarrell/template-npm",
-	"devDependencies": {
-		"@biomejs/biome": "^2.5.3",
-		"@commitlint/cli": "^21.2.1",
-		"@commitlint/config-conventional": "^21.2.0",
-		"fast-check": "^4.9.0",
-		"husky": "^9.1.7",
-		"tinybench": "^6.0.2"
-	},
-	"devEngines": {
-		"runtime": {
-			"name": "node",
-			"onFail": "error"
-		},
-		"packageManager": {
-			"name": "npm",
-			"onFail": "error"
-		}
-	},
-	"workspaces": [
-		".github"
-	]
+  "name": "@willfarrell/template-npm",
+  "version": "0.0.1",
+  "description": "Repository template for npm packages",
+  "private": false,
+  "type": "module",
+  "packageManager": "npm@12.0.1+sha512.L5T9i/YAQWQQWqTS/xZxJkei/9zcu99hCeE4qi41IyBVV7mRQad3qc2JfuOktwmH+qwGI/V2rbCL+/UYxb1+RQA==",
+  "engines": {
+    "node": ">=24"
+  },
+  "engineStrict": true,
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "default": "./index.js"
+      }
+    }
+  },
+  "scripts": {
+    "prepare": "husky",
+    "git:pre-commit": "npm run git:test",
+    "git:commit-msg": "commitlint --config commitlint.config.cjs --edit",
+    "git:test": "npm run git:lint-staged && npm run git:unit-staged",
+    "git:lint-staged": "npm run test:lint",
+    "git:unit-staged": "node --test",
+    "lint": "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true",
+    "test": "npm run test:lint && npm run test:unit && npm run test:sast && npm run test:perf && npm run test:dast",
+    "test:lint": "biome check --staged --no-errors-on-unmatched --files-ignore-unknown=true",
+    "test:unit": "node --test --experimental-test-coverage --test-coverage-lines=90 --test-coverage-branches=80 --test-coverage-functions=80",
+    "test:sast": "npm run test:sast:license && npm run test:sast:lockfile && npm run test:sast:trivy && npm run test:sast:semgrep && npm run test:sast:trufflehog && npm run test:sast:gitleaks",
+    "test:sast:license": "license-check-and-add check -f license.json",
+    "test:sast:lockfile": "lockfile-lint --path package-lock.json --type npm --allowed-hosts npm --validate-https",
+    "test:sast:semgrep": "semgrep scan --config auto",
+    "test:sast:trivy": "trivy fs --scanners vuln,license --include-dev-deps --ignored-licenses 0BSD,Apache-2.0,BSD-1-Clause,BSD-2-Clause,BSD-3-Clause,CC0-1.0,CC-BY-4.0,ISC,MIT --exit-code 1 --disable-telemetry .",
+    "test:sast:trufflehog": "trufflehog filesystem --only-verified --log-level=-1 ./",
+    "test:perf": "node --test ./**/*.perf.js",
+    "test:dast": "npm run test:dast:fuzz && npm run test:dast:zap",
+    "test:dast:fuzz": "node --test ./**/*.fuzz.js",
+    "test:dast:zap": "",
+    "test:sast:gitleaks": "npm run test:sast:gitleaks:dir && npm run test:sast:gitleaks:git",
+    "test:sast:gitleaks:dir": "gitleaks dir . --redact --no-banner",
+    "test:sast:gitleaks:git": "gitleaks git . --redact --no-banner"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willfarrell/template-npm.git"
+  },
+  "keywords": [],
+  "author": "willfarrell",
+  "license": "MIT",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/willfarrell"
+  },
+  "bugs": {
+    "url": "https://github.com/willfarrell/template-npm/issues"
+  },
+  "homepage": "https://github.com/willfarrell/template-npm",
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.3",
+    "@commitlint/cli": "^21.2.1",
+    "@commitlint/config-conventional": "^21.2.0",
+    "fast-check": "^4.9.0",
+    "husky": "^9.1.7",
+    "tinybench": "^6.0.2"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "onFail": "error"
+    },
+    "packageManager": {
+      "name": "npm",
+      "onFail": "error"
+    }
+  },
+  "workspaces": [
+    ".github"
+  ]
 }
