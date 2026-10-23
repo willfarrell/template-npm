@@ -43,6 +43,19 @@ Automated using `.github/workflows/ossf-scorecard.yml`. Details on check and rem
       1. Click `Add tool`, select `CodeQL`
 1. Click `Create`
 
+### Environments
+
+The `publish` job in `release.yml` is gated by the `npm-publish` GitHub Environment.
+
+1. Go to [Environments](https://github.com/willfarrell/template-npm/settings/environments)
+1. Click `New environment`, name it `npm-publish`
+1. Enable `Required reviewers` and add the maintainers who may approve a publish
+1. Under `Deployment branches and tags`, restrict to `main`
+
+### npm staged publishing
+
+Publishes are staged (`npm stage publish`), not published directly. After CI stages a release, a maintainer runs `npm run release:approve` locally (requires `npm login` with 2FA) to make it live. See [`RELEASE.md`](RELEASE.md).
+
 ### Code security
 
 1. Go to [Code security](https://github.com/willfarrell/template-npm/settings/security_analysis)

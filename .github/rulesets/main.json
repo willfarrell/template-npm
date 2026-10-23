@@ -1,0 +1,95 @@
+{
+	"name": "main",
+	"target": "branch",
+	"enforcement": "active",
+	"conditions": {
+		"ref_name": {
+			"exclude": [],
+			"include": ["~DEFAULT_BRANCH"]
+		}
+	},
+	"rules": [
+		{
+			"type": "deletion"
+		},
+		{
+			"type": "non_fast_forward"
+		},
+		{
+			"type": "required_signatures"
+		},
+		{
+			"type": "code_scanning",
+			"parameters": {
+				"code_scanning_tools": [
+					{
+						"tool": "CodeQL",
+						"security_alerts_threshold": "all",
+						"alerts_threshold": "all"
+					}
+				]
+			}
+		},
+		{
+			"type": "pull_request",
+			"parameters": {
+				"required_approving_review_count": 2,
+				"dismiss_stale_reviews_on_push": true,
+				"required_reviewers": [],
+				"require_code_owner_review": true,
+				"require_last_push_approval": true,
+				"required_review_thread_resolution": false,
+				"allowed_merge_methods": ["merge"]
+			}
+		},
+		{
+			"type": "required_status_checks",
+			"parameters": {
+				"strict_required_status_checks_policy": true,
+				"do_not_enforce_on_create": false,
+				"required_status_checks": [
+					{
+						"context": "CodeQL"
+					},
+					{
+						"context": "Tests (fuzz)"
+					},
+					{
+						"context": "Tests (bench)"
+					},
+					{
+						"context": "CodeQL: SAST (javascript)"
+					},
+					{
+						"context": "semgrep: SAST"
+					},
+					{
+						"context": "Tests (lint)"
+					},
+					{
+						"context": "DCO"
+					},
+					{
+						"context": "Tests (dco)"
+					},
+					{
+						"context": "Trivy: Licensing"
+					},
+					{
+						"context": "Trivy: SCA"
+					},
+					{
+						"context": "lockfile-lint: SAST package-lock.json"
+					},
+					{
+						"context": "Tests (unit)"
+					},
+					{
+						"context": "Tests (mutation)"
+					}
+				]
+			}
+		}
+	],
+	"bypass_actors": []
+}

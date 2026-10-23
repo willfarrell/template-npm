@@ -4,8 +4,9 @@
   <p><strong>A repository template for npm packages that meets OSSF Best Practices</strong></p>
 <p>
   <a href="https://github.com/willfarrell/template-npm/actions/workflows/test-unit.yml"><img src="https://github.com/willfarrell/template-npm/actions/workflows/test-unit.yml/badge.svg" alt="GitHub Actions unit test status"></a>
+  <a href="https://github.com/willfarrell/template-npm/actions/workflows/test-mutation.yml"><img src="https://github.com/willfarrell/template-npm/actions/workflows/test-mutation.yml/badge.svg" alt="GitHub Actions mutation test status"></a>
   <a href="https://github.com/willfarrell/template-npm/actions/workflows/test-dast.yml"><img src="https://github.com/willfarrell/template-npm/actions/workflows/test-dast.yml/badge.svg" alt="GitHub Actions dast test status"></a>
-  <a href="https://github.com/willfarrell/template-npm/actions/workflows/test-perf.yml"><img src="https://github.com/willfarrell/template-npm/actions/workflows/test-perf.yml/badge.svg" alt="GitHub Actions perf test status"></a>
+  <a href="https://github.com/willfarrell/template-npm/actions/workflows/test-bench.yml"><img src="https://github.com/willfarrell/template-npm/actions/workflows/test-bench.yml/badge.svg" alt="GitHub Actions perf test status"></a>
   <a href="https://github.com/willfarrell/template-npm/actions/workflows/test-sast.yml"><img src="https://github.com/willfarrell/template-npm/actions/workflows/test-sast.yml/badge.svg" alt="GitHub Actions SAST test status"></a>
   <a href="https://github.com/willfarrell/template-npm/actions/workflows/test-lint.yml"><img src="https://github.com/willfarrell/template-npm/actions/workflows/test-lint.yml/badge.svg" alt="GitHub Actions lint test status"></a>
   <br/>
@@ -24,6 +25,8 @@
   <a href="https://conventionalcommits.org"><img alt="Conventional Commits" src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white"></a>
   <a href="https://github.com/willfarrell/template-npm/actions/workflows/test-unit.yml">
   <img alt="code coverage" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/willfarrell/template-npm/gh-reports/unit/badge.json"></a>
+  <a href="https://github.com/willfarrell/template-npm/actions/workflows/test-mutation.yml">
+  <img alt="mutation score" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/willfarrell/template-npm/gh-reports/mutation/badge.json"></a>
 </p>
 <p>You can read the documentation at: <a href="https://github.com/willfarrell/template-npm">https://github.com/willfarrell/template-npm</a></p>
 </div>

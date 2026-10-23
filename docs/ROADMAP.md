@@ -13,7 +13,7 @@ See [milestones](https://github.com/willfarrell/template-npm/milestones) for pla
 
 ## Actions
 
-- `test-perf` Error on reduction of performance
+- `test-bench` Error on reduction of performance
 - automate secret rotation (npm)
 - automate secret rotation (release-please)
 - deprecate experimental flag `--experimental-test-coverage`

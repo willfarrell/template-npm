@@ -47,7 +47,7 @@ Legend:
 | V2.1.1 | L1 | Secure coding OSS policy enforcement | ✅ | `SECURITY.md` |
 | V2.2.1-2 | L1 | Monthly linting + remediation | ✅ | `test-lint.yml` runs Biome on every PR |
 | V2.2.3-4 | L1 | Monthly style scans + remediation | ✅ | Biome covers style |
-| V2.2.5 | L2 | Unit tests cover security paths | ✅ | `index.test.js` + `index.fuzz.js` |
+| V2.2.5 | L2 | Unit tests cover security paths | ✅ | `index.test.js` + `index.fuzz.js`; test quality gated by StrykerJS mutation testing (`test-mutation.yml`, score 100%) |
 | V2.2.6 | L1 | Code-quality tools flag insecure patterns | ✅ | Biome + semgrep + CodeQL |
 | V2.3.1 | L3 | Code review policy requires security review | ✅ | `.github/CODEOWNERS` + branch protection (2 reviewers) |
 | V2.3.2 | L3 | Reviews conducted per policy | ✅ | Branch protection enforced |

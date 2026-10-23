@@ -1,3 +1,5 @@
+// Copyright 2025 - 2026 will Farrell.
+// SPDX-License-Identifier: MIT
 /**
  * Sample function
  */

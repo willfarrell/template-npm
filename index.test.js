@@ -24,8 +24,7 @@ describe("Unit", () => {
 			() => {
 				run(false);
 			},
-			undefined,
-			"false",
+			{ message: "false" },
 		);
 	});
 });

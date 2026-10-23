@@ -17,4 +17,7 @@ Before deploying a new version, update all dependancies where possible without b
 1. `prerelease.yml` will automatically open a `develop` -> `main` PR titled `release: vX.Y.Z`
 1. Preview PR
 1. Merge PR, this will trigger `release.yml`
+1. Approve the `npm-publish` environment deployment when prompted (required reviewers gate the `publish` job)
+1. CI stages the publish (`npm stage publish`); the package is not live yet
+1. A maintainer runs `npm run release:approve` locally (requires `npm login` with 2FA) to approve the staged publish and make the version live
 1. Delete branch

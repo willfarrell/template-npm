@@ -130,8 +130,9 @@ dist
 .pnp.*
 
 # CI artifacts (emitted by node --test reporters; consumed by github-action-benchmark)
-test-perf-results.json
+test-bench-results.json
 test-unit-results.json
+
 
 # OS
 .DS_Store

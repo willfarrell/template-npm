@@ -15,9 +15,11 @@ Ensure git history is pulled from the `develop` branch.
 ```bash
 npm i -g nmq
 npm i -g lockfile-lint
+brew install actionlint
 brew install semgrep
 brew install trivy
 brew install trufflehog
+brew install zizmor
 brew install --cask zap
 ```
 
@@ -41,12 +43,27 @@ We use `biome` with recommended configurations plus a few correctness additions.
 
 We use `node --test` with a minimum test coverage of:
 
-- lines: >=90%
-- branches: >=80%
-- functions: >=90%
+- lines: 100%
+- branches: 100%
+- functions: 100%
 
 Of course higher is always better. Bug fixes should always start with a failing unit test.
 New features should have acceptance and rejection tests.
+
+### Mutation tests
+
+We use `StrykerJS` to measure the _quality_ of the unit suite, not just its coverage. Line and branch
+coverage prove the code was executed; they do not prove a test would fail if the code were wrong. Stryker
+copies the project to a sandbox, applies one source mutation at a time (e.g. `return true` becomes
+`return false`, or a string literal is emptied), and re-runs `node --test`. A mutant that survives a green
+suite is an assertion the tests never make.
+
+```bash
+npm run test:mutation
+```
+
+The mutation score must be 100% (`thresholds.break` in `stryker.config.json`). A surviving
+mutant means a missing or vacuous assertion — fix the test, not the threshold.
 
 ### SAST
 
@@ -63,7 +80,7 @@ before reaching this packages inputs.
 
 ### Performance benchmarks
 
-We use `tinybench` to ensure there are no performance regressions.
+We use the built-in [`node:bench`](https://nodejs.org/api/bench.html) (Node.js >= 26.9) to ensure there are no performance regressions. Benchmarks live in `*.bench.js` files and run with `npm run test:bench`.
 
 ## 5. Committing
 

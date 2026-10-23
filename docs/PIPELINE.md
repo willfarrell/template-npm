@@ -18,7 +18,8 @@ feature/*  ──PR──>  develop  ──release-please PR──>  main  ─�
   2. Generates a Sigstore build provenance attestation (`actions/attest-build-provenance`).
   3. Creates a draft GitHub release with the `.tgz` attached.
   4. Verifies the attestation (`gh attestation verify`) and dependency signatures (`npm audit signatures`).
-  5. Publishes to npm with `--provenance` (OIDC; no static `NPM_TOKEN`).
+  5. Stages the publish to npm with `npm stage publish --provenance` (OIDC; no static `NPM_TOKEN`), gated by the `npm-publish` GitHub Environment (required reviewers).
+  6. A maintainer runs `npm run release:approve` locally (requires `npm login` with 2FA) to approve the staged publish and make the version live.
 
 ## Manual Approval Gate (SPVS V3.3.20)
 
@@ -30,23 +31,24 @@ This is enforced via GitHub branch protection on `main`:
 - Dismiss stale approvals on new commits: **on**
 - Require review from CODEOWNERS: **on**
 - Require status checks to pass: **on**
-- Required status checks: `Tests (unit)`, `Tests (lint)`, `Tests (sast)`, `Tests (perf)`, `Tests (dast)`, `Tests (dco)`
+- Required status checks: `Tests (unit)`, `Tests (mutation)`, `Tests (lint)`, `Tests (sast)`, `Tests (bench)`, `Tests (dast)`, `Tests (dco)`
 - Require branches to be up to date: **on**
 - Restrict who can push: **only release-please bot via PR**
 - Allow force pushes: **off**
 - Allow deletions: **off**
 
-Defense-in-depth alternative (not currently enabled): wrap the `publish` job in a GitHub Environment with required reviewers, providing a second approval gate at the publish moment. Deferred — the merge gate is sufficient under SPVS.
+Defense-in-depth: the `publish` job is wrapped in the `npm-publish` GitHub Environment with required reviewers, providing a second approval gate at the publish moment, and the publish itself is staged (`npm stage publish`) so a maintainer must approve it on npm (`npm run release:approve`, 2FA) before it goes live.
 
 ## Workflows
 
 | Workflow | Trigger | Purpose | SPVS controls |
 |---|---|---|---|
 | `test-lint.yml` | PR | Biome lint/format check | V2.2.1 |
-| `test-unit.yml` | PR + push to main | Unit tests + coverage gate (95/80/80) | V2.2.5, V2.7.x |
-| `test-perf.yml` | PR + push to main | tinybench regression check | V3.3.16 |
+| `test-unit.yml` | PR + push to main | Unit tests + coverage gate (100/100/100) | V2.2.5, V2.7.x |
+| `test-mutation.yml` | PR | StrykerJS mutation testing, score gate (100%) | V2.2.5 |
+| `test-bench.yml` | PR + push to main | `node:bench` regression check | V3.3.16 |
 | `test-dast.yml` | PR | fast-check property/fuzz tests | V3.3.14 |
-| `test-sast.yml` | PR + weekly cron | Trivy SCA, Trivy license, lockfile-lint, CodeQL, semgrep, TruffleHog, gitleaks, zizmor (workflow SAST) | V2.4.1-9, V2.4.14, V3.1.5, V3.3.4-9, V2.5.1, V3.2.1 |
+| `test-sast.yml` | PR + weekly cron | Trivy SCA, Trivy license, lockfile-lint, CodeQL, semgrep, actionlint, dependency-review, TruffleHog, gitleaks, zizmor (workflow SAST) | V2.4.1-9, V2.4.14, V3.1.5, V3.3.4-9, V2.5.1, V3.2.1 |
 | `test-dco.yml` | PR | Developer Certificate of Origin sign-off | V1.5.x |
 | `ossf-scorecard.yml` | weekly cron + push to main | OpenSSF Scorecard scan, results to code-scanning | V5.2.x, V5.4.1 |
 | `prerelease.yml` | PR closed on `develop` | Opens release-please promotion PR `develop → main` | V1.5.3 |
@@ -54,7 +56,7 @@ Defense-in-depth alternative (not currently enabled): wrap the `publish` job in 
 
 ## Pipeline Hardening
 
-- **Runner hardening:** Every job (except containerised semgrep) starts with `step-security/harden-runner` in `audit` mode with `disable-telemetry: true`. The action monitors process and network activity entirely on the GitHub-hosted runner; with telemetry disabled, no data is transmitted to StepSecurity's API. Egress events appear only in the GitHub Actions log for that run. Once the allowlist stabilises, mode flips to `block`. Trade-off: no StepSecurity dashboard — egress review is manual.
+- **Runner hardening:** Every job (except containerised semgrep) starts with `step-security/harden-runner` with `disable-telemetry: true` and `egress-policy: block` plus a minimal per-job `allowed-endpoints` list. The sole exception is TruffleHog, which stays in `audit` mode: secret verification contacts each candidate secret's issuing provider, so its egress is data-dependent and a fixed allowlist would silently drop findings. With telemetry disabled, no data is transmitted to StepSecurity's API; egress events appear only in the GitHub Actions log for that run.
 - **Action pinning:** All third-party actions pinned to commit SHA with `# vX.Y.Z` comment. Dependabot bumps the `github-actions` ecosystem weekly.
 - **Permissions:** Workflows declare `permissions: read-all` or scoped equivalents at the workflow level; jobs only request additional scopes when needed.
 - **Workflow SAST:** `zizmor` runs as a job inside `test-sast.yml` (every PR + weekly cron), catching template-injection, untrusted-checkout, and over-broad permission patterns.
@@ -63,8 +65,8 @@ Defense-in-depth alternative (not currently enabled): wrap the `publish` job in 
 ## Provenance and Verification
 
 - Build provenance is attested with [Sigstore](https://sigstore.dev) via `actions/attest-build-provenance`. The attestation is uploaded to the GitHub attestations API and to the Sigstore transparency log.
-- Each `.tgz` is verified with `gh attestation verify` in the `publish` job before reaching `npm publish`.
-- `npm publish --provenance` re-attests at the registry layer; consumers see the provenance badge on npmjs.com.
+- Each `.tgz` is verified with `gh attestation verify` in the `publish` job before reaching `npm stage publish`.
+- `npm stage publish --provenance` re-attests at the registry layer; consumers see the provenance badge on npmjs.com.
 - Dependency signatures are verified with `npm audit signatures` before publish, ensuring all installed packages bear valid registry signatures.
 
 ## Pipeline Documentation Maintenance

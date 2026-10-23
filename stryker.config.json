@@ -1,0 +1,19 @@
+{
+	"$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+	"_comment": "Mutation testing. Coverage proves the tests EXECUTE the code; mutation testing proves the tests would FAIL if the code were wrong. Stryker copies the project to a sandbox, applies one source mutation at a time (e.g. `return true` -> `return false`), and re-runs the suite. A mutant that survives a green suite is an assertion the tests never make.",
+	"packageManager": "npm",
+	"testRunner": "command",
+	"commandRunner": {
+		"command": "node --test"
+	},
+	"coverageAnalysis": "off",
+	"tempDirName": "/tmp/stryker/template-npm",
+	"mutate": ["index.js"],
+	"plugins": ["@stryker-mutator/*", "./.github/test-mutation-reporter.js"],
+	"reporters": ["progress", "clear-text", "benchmark"],
+	"thresholds": {
+		"high": 100,
+		"low": 100,
+		"break": 100
+	}
+}

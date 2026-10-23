@@ -1,0 +1,32 @@
+name: Update devexp metric badges
+description: Read devexp-up.json + devexp-down.json and write one shields.io endpoint badge per metric to gh-reports/devexp/<name>.json. Color is keyed off each metric's goal so a green badge always means "meeting the goal".
+
+inputs:
+  up-file:
+    description: Path to the customBiggerIsBetter JSON file produced by collect.mjs.
+    required: true
+  down-file:
+    description: Path to the customSmallerIsBetter JSON file produced by collect.mjs.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout gh-reports
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      with:
+        ref: gh-reports
+        path: gh-reports
+    - name: Write & push badges
+      shell: bash
+      working-directory: gh-reports
+      run: |
+        mkdir -p devexp
+        bash "${GITHUB_ACTION_PATH}/badge.sh" "${GITHUB_WORKSPACE}/${{ inputs.up-file }}" up devexp
+        bash "${GITHUB_ACTION_PATH}/badge.sh" "${GITHUB_WORKSPACE}/${{ inputs.down-file }}" down devexp
+        git add devexp
+        git diff --cached --quiet && exit 0
+        git -c user.name='github-actions[bot]' \
+            -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit -m 'chore: update devexp badges'
+        git push
