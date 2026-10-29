@@ -72,16 +72,8 @@ jobs:
           npm run test:mutation
       # allowed-endpoints: >
       #   api.github.com:443
-      - name: Check baseline
-        id: baseline
-        uses: ./.github/actions/gh-reports-branch
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-      # allowed-endpoints: >
-      #   api.github.com:443
       #   github.com:443
       - name: Compare & comment
-        if: steps.baseline.outputs.exists == 'true'
         uses: benchmark-action/github-action-benchmark@52576c92bccf6ac60c8223ec7eb2565637cae9ba # v1.22.1
         with:
           name: mutation
@@ -152,13 +144,6 @@ jobs:
           npm run test:mutation
       # allowed-endpoints: >
       #   api.github.com:443
-      - name: Ensure gh-reports branch
-        uses: ./.github/actions/gh-reports-branch
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          create: true
-      # allowed-endpoints: >
-      #   api.github.com:443
       #   github.com:443
       - name: Persist baseline
         uses: benchmark-action/github-action-benchmark@52576c92bccf6ac60c8223ec7eb2565637cae9ba # v1.22.1
@@ -173,7 +158,3 @@ jobs:
           summary-always: true
           alert-threshold: '100%'
           fail-on-alert: true
-      - name: Update mutation badge
-        uses: ./.github/actions/test-mutation-badge
-        with:
-          results-file: test-mutation-results.json

@@ -75,16 +75,8 @@ jobs:
             --bench "./**/*.bench.js"
       # allowed-endpoints: >
       #   api.github.com:443
-      - name: Check baseline
-        id: baseline
-        uses: ./.github/actions/gh-reports-branch
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-      # allowed-endpoints: >
-      #   api.github.com:443
       #   github.com:443
       - name: Compare & comment
-        if: steps.baseline.outputs.exists == 'true'
         uses: benchmark-action/github-action-benchmark@52576c92bccf6ac60c8223ec7eb2565637cae9ba # v1.22.1
         with:
           name: node-bench
@@ -156,13 +148,6 @@ jobs:
             --bench-reporter=./.github/test-bench-reporter.js \
             --bench-reporter-destination=test-bench-results.json \
             --bench "./**/*.bench.js"
-      # allowed-endpoints: >
-      #   api.github.com:443
-      - name: Ensure gh-reports branch
-        uses: ./.github/actions/gh-reports-branch
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          create: true
       # allowed-endpoints: >
       #   api.github.com:443
       #   github.com:443
