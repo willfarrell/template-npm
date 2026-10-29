@@ -306,6 +306,8 @@ jobs:
             github.com:443
             objects.githubusercontent.com:443
             pypi.org:443
+            raw.githubusercontent.com:443
+            registry.npmjs.org:443
             release-assets.githubusercontent.com:443
       # allowed-endpoints: >
       #   github.com:443
@@ -319,6 +321,8 @@ jobs:
       #   github.com:443
       #   objects.githubusercontent.com:443
       #   pypi.org:443
+      #   raw.githubusercontent.com:443   # problem matcher
+      #   registry.npmjs.org:443          # npm install @actions/tool-cache
       #   release-assets.githubusercontent.com:443
       - name: actionlint
         uses: raven-actions/actionlint@3d39aea434753780c3b3d4a1a31c854b4dbf49d7 # v2.2.0
