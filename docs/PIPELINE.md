@@ -45,7 +45,7 @@ Defense-in-depth: the `publish` job is wrapped in the `npm-publish` GitHub Envir
 |---|---|---|---|
 | `test-lint.yml` | PR | Biome lint/format check | V2.2.1 |
 | `test-unit.yml` | PR + push to main | Unit tests + coverage gate (100/100/100) | V2.2.5, V2.7.x |
-| `test-mutation.yml` | PR | StrykerJS mutation testing, score gate (100%) | V2.2.5 |
+| `test-mutation.yml` | PR + push to main | StrykerJS mutation testing, score gate (100%) | V2.2.5 |
 | `test-bench.yml` | PR + push to main | `node:bench` regression check | V3.3.16 |
 | `test-dast.yml` | PR | fast-check property/fuzz tests | V3.3.14 |
 | `test-sast.yml` | PR + weekly cron | Trivy SCA, Trivy license, lockfile-lint, CodeQL, semgrep, actionlint, dependency-review, TruffleHog, gitleaks, zizmor (workflow SAST) | V2.4.1-9, V2.4.14, V3.1.5, V3.3.4-9, V2.5.1, V3.2.1 |

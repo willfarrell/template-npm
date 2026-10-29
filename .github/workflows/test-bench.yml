@@ -2,6 +2,8 @@ name: Tests (bench)
 
 on:
   pull_request:
+  push:
+    branches: [main]
 
 env:
   NODE_VERSION: 26.x
@@ -24,7 +26,7 @@ jobs:
 
     steps:
       - name: Harden runner
-        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
         with:
           egress-policy: block
           disable-sudo: true
@@ -73,8 +75,16 @@ jobs:
             --bench "./**/*.bench.js"
       # allowed-endpoints: >
       #   api.github.com:443
+      - name: Check baseline
+        id: baseline
+        uses: ./.github/actions/gh-reports-branch
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      # allowed-endpoints: >
+      #   api.github.com:443
       #   github.com:443
       - name: Compare & comment
+        if: steps.baseline.outputs.exists == 'true'
         uses: benchmark-action/github-action-benchmark@52576c92bccf6ac60c8223ec7eb2565637cae9ba # v1.22.1
         with:
           name: node-bench
@@ -99,7 +109,7 @@ jobs:
 
     steps:
       - name: Harden runner
-        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
         with:
           egress-policy: block
           disable-sudo: true
@@ -146,6 +156,13 @@ jobs:
             --bench-reporter=./.github/test-bench-reporter.js \
             --bench-reporter-destination=test-bench-results.json \
             --bench "./**/*.bench.js"
+      # allowed-endpoints: >
+      #   api.github.com:443
+      - name: Ensure gh-reports branch
+        uses: ./.github/actions/gh-reports-branch
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          create: true
       # allowed-endpoints: >
       #   api.github.com:443
       #   github.com:443
